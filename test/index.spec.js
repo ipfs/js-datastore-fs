@@ -137,4 +137,19 @@ describe('FsDatastore', () => {
       }
     })
   })
+
+  // TODO: depends on sharding query fix
+  describe.skip('interface-datastore (sharding(fs))', () => {
+    const dir = utils.tmpdir()
+
+    require('interface-datastore/test/interface')({
+      setup (callback) {
+        const shard = new sh.NextToLast(2)
+        ShardingStore.createOrOpen(new FsStore(dir), shard, callback)
+      },
+      teardown (callback) {
+        rimraf(dir, callback)
+      }
+    })
+  })
 })
