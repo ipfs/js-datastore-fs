@@ -1,0 +1,52 @@
+{
+  "name": "datastore-fs",
+  "version": "1.0.0",
+  "description": "Datastore implementation with file system backend",
+  "main": "src/index.js",
+  "scripts": {
+    "lint": "aegir-lint",
+    "test": "aegir-test --env node",
+    "flow": "flow",
+    "release": "aegir-release --env node",
+    "release-minor": "aegir-release --type minor --env node",
+    "release-major": "aegir-release --type major --env node",
+    "coverage": "aegir-coverage",
+    "coverage-publish": "aegir-coverage publish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ipfs/js-datastore-fs.git"
+  },
+  "keywords": [
+    "interface",
+    "key-value",
+    "ipfs",
+    "datastore",
+    "fs"
+  ],
+  "author": "Friedel Ziegelmayer<dignifiedquire@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ipfs/js-datastore-fs/issues"
+  },
+  "homepage": "https://github.com/ipfs/js-datastore-fs#readme",
+  "dependencies": {
+    "graceful-fs": "^4.1.11",
+    "level-js": "^2.2.4",
+    "leveldown": "^1.6.0",
+    "levelup": "^1.3.5",
+    "mkdirp": "^0.5.1",
+    "pull-glob": "^1.0.6",
+    "pull-stream": "^3.5.0",
+    "write-file-atomic": "^1.3.1"
+  },
+  "devDependencies": {
+    "aegir": "^10.0.0",
+    "async": "^2.1.5",
+    "chai": "^3.5.0",
+    "cids": "^0.4.1",
+    "flow-bin": "^0.41.0",
+    "memdown": "^1.2.4",
+    "rimraf": "^2.6.1"
+  }
+}
