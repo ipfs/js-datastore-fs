@@ -13,8 +13,8 @@ const fs = require('fs')
 
 const Key = require('interface-datastore').Key
 const utils = require('interface-datastore').utils
-const ShardingStore = require('interface-datastore').ShardingDatastore
-const sh = require('interface-datastore').shard
+const ShardingStore = require('datastore-core').ShardingDatastore
+const sh = require('datastore-core').shard
 
 const FsStore = require('../src')
 
@@ -128,7 +128,7 @@ describe('FsDatastore', () => {
   describe('interface-datastore', () => {
     const dir = utils.tmpdir()
 
-    require('interface-datastore/test/interface')({
+    require('interface-datastore/src/tests')({
       setup (callback) {
         callback(null, new FsStore(dir))
       },
@@ -142,7 +142,7 @@ describe('FsDatastore', () => {
   describe.skip('interface-datastore (sharding(fs))', () => {
     const dir = utils.tmpdir()
 
-    require('interface-datastore/test/interface')({
+    require('interface-datastore/src/tests')({
       setup (callback) {
         const shard = new sh.NextToLast(2)
         ShardingStore.createOrOpen(new FsStore(dir), shard, callback)
