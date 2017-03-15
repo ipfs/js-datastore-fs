@@ -58,6 +58,7 @@ class FsDatastore {
   /**
    * Check if the path actually exists.
    * @private
+   * @returns {void}
    */
   _open () {
     if (!fs.existsSync(this.path)) {
@@ -73,6 +74,7 @@ class FsDatastore {
    * Create the directory to hold our data.
    *
    * @private
+   * @returns {void}
    */
   _create () {
     mkdirp.sync(this.path, { fs: fs })
@@ -82,6 +84,7 @@ class FsDatastore {
    * Tries to open, and creates if the open fails.
    *
    * @private
+   * @returns {void}
    */
   _openOrCreate () {
     try {
@@ -100,6 +103,8 @@ class FsDatastore {
    * Calculate the directory and file name for a given key.
    *
    * @private
+   * @param {Key} key
+   * @returns {{string, string}}
    */
   _encode (key /* : Key */) /* : {dir: string, file: string} */ {
     const parent = key.parent().toString()
@@ -117,6 +122,8 @@ class FsDatastore {
    * Calculate the original key, given the file name.
    *
    * @private
+   * @param {string} file
+   * @returns {Key}
    */
   _decode (file /* : string */) /* : Key */ {
     const ext = this.opts.extension
@@ -128,7 +135,12 @@ class FsDatastore {
   }
 
   /**
-   * Write to the file system without extension
+   * Write to the file system without extension.
+   *
+   * @param {Key} key
+   * @param {Buffer} val
+   * @param {function(Error)} callback
+   * @returns {void}
    */
   putRaw (key /* : Key */, val /* : Buffer */, callback /* : Callback<void> */) /* : void */ {
     const parts = this._encode(key)
@@ -139,6 +151,14 @@ class FsDatastore {
     ], callback)
   }
 
+  /**
+   * Store the given value under the key.
+   *
+   * @param {Key} key
+   * @param {Buffer} val
+   * @param {function(Error)} callback
+   * @returns {void}
+   */
   put (key /* : Key */, val /* : Buffer */, callback /* : Callback<void> */) /* : void */ {
     const parts = this._encode(key)
     series([
@@ -148,7 +168,11 @@ class FsDatastore {
   }
 
   /**
-   * Reat from the file system without extension.
+   * Read from the file system without extension.
+   *
+   * @param {Key} key
+   * @param {function(Error, Buffer)} callback
+   * @returns {void}
    */
   getRaw (key /* : Key */, callback /* : Callback<Buffer> */) /* : void */ {
     const parts = this._encode(key)
@@ -156,11 +180,25 @@ class FsDatastore {
     fs.readFile(file, callback)
   }
 
+  /**
+   * Read from the file system.
+   *
+   * @param {Key} key
+   * @param {function(Error, Buffer)} callback
+   * @returns {void}
+   */
   get (key /* : Key */, callback /* : Callback<Buffer> */) /* : void */ {
     const parts = this._encode(key)
     fs.readFile(parts.file, callback)
   }
 
+  /**
+   * Check for the existence of the given key.
+   *
+   * @param {Key} key
+   * @param {function(Error, bool)} callback
+   * @returns {void}
+   */
   has (key /* : Key */, callback /* : Callback<bool> */) /* : void */ {
     const parts = this._encode(key)
     fs.access(parts.file, err => {
@@ -168,11 +206,23 @@ class FsDatastore {
     })
   }
 
+  /**
+   * Delete the record under the given key.
+   *
+   * @param {Key} key
+   * @param {function(Error)} callback
+   * @returns {void}
+   */
   delete (key /* : Key */, callback /* : Callback<void> */) /* : void */ {
     const parts = this._encode(key)
     fs.unlink(parts.file, callback)
   }
 
+  /**
+   * Create a new batch object.
+   *
+   * @returns {Batch}
+   */
   batch () /* : Batch<Buffer> */ {
     const puts = []
     const deletes = []
@@ -196,6 +246,12 @@ class FsDatastore {
     }
   }
 
+  /**
+   * Query the store.
+   *
+   * @param {Object} q
+   * @returns {PullStream}
+   */
   query (q /* : Query<Buffer> */) /* : QueryResult<Buffer> */ {
     let tasks = [glob(path.join(this.path, '**', '*' + this.opts.extension))]
 
@@ -245,6 +301,12 @@ class FsDatastore {
     return pull.apply(null, tasks)
   }
 
+  /**
+   * Close the store.
+   *
+   * @param {function(Error)} callback
+   * @returns {void}
+   */
   close (callback /* : (err: ?Error) => void */) /* : void */ {
     setImmediate(callback)
   }
