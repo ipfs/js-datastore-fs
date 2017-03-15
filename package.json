@@ -1,17 +1,18 @@
 {
   "name": "datastore-fs",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Datastore implementation with file system backend",
   "main": "src/index.js",
   "scripts": {
     "lint": "aegir-lint",
     "test": "aegir-test --env node",
     "flow": "flow",
-    "release": "aegir-release --env node",
-    "release-minor": "aegir-release --type minor --env node",
-    "release-major": "aegir-release --type major --env node",
+    "release": "aegir-release --env node --docs",
+    "release-minor": "aegir-release --type minor --env node --docs",
+    "release-major": "aegir-release --type major --env node --docs",
     "coverage": "aegir-coverage",
-    "coverage-publish": "aegir-coverage publish"
+    "coverage-publish": "aegir-coverage publish",
+    "docs": "aegir-docs"
   },
   "repository": {
     "type": "git",
@@ -31,7 +32,9 @@
   },
   "homepage": "https://github.com/ipfs/js-datastore-fs#readme",
   "dependencies": {
+    "datastore-core": "^0.1.0",
     "graceful-fs": "^4.1.11",
+    "interface-datastore": "^0.1.0",
     "level-js": "^2.2.4",
     "leveldown": "^1.6.0",
     "levelup": "^1.3.5",
