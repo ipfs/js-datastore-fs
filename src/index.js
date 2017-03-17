@@ -7,7 +7,7 @@ const fs = require('graceful-fs')
 const pull = require('pull-stream')
 const glob = require('pull-glob')
 const setImmediate = require('async/setImmediate')
-const series = require('async/series')
+const waterfall = require('async/series')
 const each = require('async/each')
 const mkdirp = require('mkdirp')
 const writeFile = require('write-file-atomic')
@@ -145,10 +145,10 @@ class FsDatastore {
   putRaw (key /* : Key */, val /* : Buffer */, callback /* : Callback<void> */) /* : void */ {
     const parts = this._encode(key)
     const file = parts.file.slice(0, -this.opts.extension.length)
-    series([
+    waterfall([
       (cb) => mkdirp(parts.dir, { fs: fs }, cb),
       (cb) => writeFile(file, val, cb)
-    ], callback)
+    ], (err) => callback(err))
   }
 
   /**
@@ -161,10 +161,10 @@ class FsDatastore {
    */
   put (key /* : Key */, val /* : Buffer */, callback /* : Callback<void> */) /* : void */ {
     const parts = this._encode(key)
-    series([
+    waterfall([
       (cb) => mkdirp(parts.dir, { fs: fs }, cb),
       (cb) => writeFile(parts.file, val, cb)
-    ], callback)
+    ], (err) => callback(err))
   }
 
   /**
@@ -176,7 +176,8 @@ class FsDatastore {
    */
   getRaw (key /* : Key */, callback /* : Callback<Buffer> */) /* : void */ {
     const parts = this._encode(key)
-    const file = parts.file.slice(0, -this.opts.extension.length)
+    let file = parts.file
+    file = file.slice(0, -this.opts.extension.length)
     fs.readFile(file, callback)
   }
 
@@ -234,14 +235,14 @@ class FsDatastore {
         deletes.push(key)
       },
       commit: (callback /* : (err: ?Error) => void */) => {
-        series([
+        waterfall([
           (cb) => each(puts, (p, cb) => {
             this.put(p.key, p.value, cb)
           }, cb),
           (cb) => each(deletes, (k, cb) => {
             this.delete(k, cb)
           }, cb)
-        ], callback)
+        ], (err) => callback(err))
       }
     }
   }
