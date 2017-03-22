@@ -2,9 +2,11 @@
 /* eslint-env mocha */
 'use strict'
 
+const chai = require('chai')
+chai.use(require('dirty-chai'))
+const expect = chai.expect
 const pull = require('pull-stream')
 const path = require('path')
-const expect = require('chai').expect
 const mkdirp = require('mkdirp')
 const rimraf = require('rimraf')
 const waterfall = require('async/waterfall')
@@ -94,7 +96,7 @@ describe('FsDatastore', () => {
     pull(
       fs.query({}),
       pull.collect((err, res) => {
-        expect(err).to.not.exist
+        expect(err).to.not.exist()
         expect(res).to.have.length(23)
         done()
       })
@@ -116,7 +118,7 @@ describe('FsDatastore', () => {
         ),
         (cb) => flatfs.get(key, cb)
       ], (err, res) => {
-        expect(err).to.not.exist
+        expect(err).to.not.exist()
         expect(res[0]).to.have.length(23)
         expect(res[1]).to.be.eql(expected)
 
