@@ -55,6 +55,11 @@ class FsDatastore {
     }
   }
 
+  open (callback /* : Callback<void> */) /* : void */ {
+    this._openOrCreate()
+    setImmediate(callback)
+  }
+
   /**
    * Check if the path actually exists.
    * @private
