@@ -28,7 +28,7 @@ $ npm install datastore-fs
 ## Usage
 
 ```js
-const FsStore = require('datastore-fs)
+const FsStore = require('datastore-fs')
 const store = new FsStore('path/to/store')
 ```
 
