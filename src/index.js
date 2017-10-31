@@ -261,8 +261,13 @@ class FsDatastore {
    * @returns {PullStream}
    */
   query (q /* : Query<Buffer> */) /* : QueryResult<Buffer> */ {
-    let tasks = [glob(path.join(this.path, '**', '*' + this.opts.extension))]
-
+    // glob expects a POSIX path
+    let pattern =
+      path.join(this.path, '**', '*' + this.opts.extension)
+      .split(path.sep)
+      .join('/')
+    let tasks = [glob(pattern)]
+    
     if (!q.keysOnly) {
       tasks.push(pull.asyncMap((f, cb) => {
         fs.readFile(f, (err, buf) => {
