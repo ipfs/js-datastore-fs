@@ -136,7 +136,9 @@ class FsDatastore {
       throw new Error(`Invalid extension: ${path.extname(file)}`)
     }
 
-    return new Key(file.slice(this.path.length, -ext.length))
+    let keyname = file.slice(this.path.length, -ext.length)
+    keyname = keyname.split(path.sep).join('/')
+    return new Key(keyname)
   }
 
   /**
