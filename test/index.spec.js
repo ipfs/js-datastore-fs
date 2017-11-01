@@ -91,7 +91,7 @@ describe('FsDatastore', () => {
   })
 
   it('query', (done) => {
-    const fs = new FsStore(path.join(__dirname, 'test-repo/blocks'))
+    const fs = new FsStore(path.join(__dirname, 'test-repo', 'blocks'))
 
     pull(
       fs.query({}),
