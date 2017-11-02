@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "lint": "aegir-lint",
-    "test": "aegir-test --env node --timeout 10000",
+    "test": "aegir-test --env node --timeout 20000",
     "flow": "flow",
     "release": "aegir-release --env node --docs",
     "release-minor": "aegir-release --type minor --env node --docs",

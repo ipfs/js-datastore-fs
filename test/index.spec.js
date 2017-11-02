@@ -139,9 +139,8 @@ describe('FsDatastore', () => {
       }
     })
   })
-
-  // TODO: depends on sharding query fix
-  describe.skip('interface-datastore (sharding(fs))', () => {
+  
+  describe('interface-datastore (sharding(fs))', () => {
     const dir = utils.tmpdir()
 
     require('interface-datastore/src/tests')({
