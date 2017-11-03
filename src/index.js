@@ -136,8 +136,10 @@ class FsDatastore {
       throw new Error(`Invalid extension: ${path.extname(file)}`)
     }
 
-    let keyname = file.slice(this.path.length, -ext.length)
-    keyname = keyname.split(path.sep).join('/')
+    const keyname = file
+      .slice(this.path.length, -ext.length)
+      .split(path.sep)
+      .join('/')
     return new Key(keyname)
   }
 
@@ -286,11 +288,11 @@ class FsDatastore {
     }
 
     if (q.filters != null) {
-      tasks = tasks.concat(q.filters.map(f => asyncFilter(f)))
+      tasks = tasks.concat(q.filters.map(asyncFilter))
     }
 
     if (q.orders != null) {
-      tasks = tasks.concat(q.orders.map(o => asyncSort(o)))
+      tasks = tasks.concat(q.orders.map(asyncSort))
     }
 
     if (q.offset != null) {
