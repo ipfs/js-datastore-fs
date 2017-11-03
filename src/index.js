@@ -5,7 +5,7 @@
 
 const fs = require('graceful-fs')
 const pull = require('pull-stream')
-const glob = require('pull-glob')
+const glob = require('glob')
 const setImmediate = require('async/setImmediate')
 const waterfall = require('async/series')
 const each = require('async/each')
@@ -136,7 +136,9 @@ class FsDatastore {
       throw new Error(`Invalid extension: ${path.extname(file)}`)
     }
 
-    return new Key(file.slice(this.path.length, -ext.length))
+    let keyname = file.slice(this.path.length, -ext.length)
+    keyname = keyname.split(path.sep).join('/')
+    return new Key(keyname)
   }
 
   /**
@@ -259,7 +261,13 @@ class FsDatastore {
    * @returns {PullStream}
    */
   query (q /* : Query<Buffer> */) /* : QueryResult<Buffer> */ {
-    let tasks = [glob(path.join(this.path, '**', '*' + this.opts.extension))]
+    // glob expects a POSIX path
+    let prefix = q.prefix || '**'
+    let pattern =
+      path.join(this.path, prefix, '*' + this.opts.extension)
+      .split(path.sep)
+      .join('/')
+    let tasks = [pull.values(glob.sync(pattern))]
 
     if (!q.keysOnly) {
       tasks.push(pull.asyncMap((f, cb) => {
@@ -277,18 +285,9 @@ class FsDatastore {
       tasks.push(pull.map(f => ({ key: this._decode(f) })))
     }
 
-    let filters = []
-
-    if (q.prefix != null) {
-      const prefix = q.prefix
-      filters.push((e, cb) => cb(null, e.key.toString().startsWith(prefix)))
-    }
-
     if (q.filters != null) {
-      filters = filters.concat(q.filters)
+      tasks = tasks.concat(q.filters.map(f => asyncFilter(f)))
     }
-
-    tasks = tasks.concat(filters.map(f => asyncFilter(f)))
 
     if (q.orders != null) {
       tasks = tasks.concat(q.orders.map(o => asyncSort(o)))

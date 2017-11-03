@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "lint": "aegir-lint",
-    "test": "aegir-test --env node",
+    "test": "aegir-test --env node --timeout 20000",
     "flow": "flow",
     "release": "aegir-release --env node --docs",
     "release-minor": "aegir-release --type minor --env node --docs",
@@ -33,13 +33,13 @@
   "homepage": "https://github.com/ipfs/js-datastore-fs#readme",
   "dependencies": {
     "datastore-core": "^0.3.0",
+    "glob": "^7.1.2",
     "graceful-fs": "^4.1.11",
     "interface-datastore": "^0.3.0",
     "level-js": "^2.2.4",
     "leveldown": "^1.7.2",
     "levelup": "^1.3.8",
     "mkdirp": "^0.5.1",
-    "pull-glob": "^1.0.6",
     "pull-stream": "^3.6.0",
     "write-file-atomic": "^2.1.0"
   },
