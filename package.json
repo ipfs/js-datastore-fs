@@ -35,10 +35,7 @@
     "datastore-core": "~0.3.0",
     "glob": "^7.1.2",
     "graceful-fs": "^4.1.11",
-    "interface-datastore": "^0.3.1",
-    "level-js": "^2.2.4",
-    "leveldown": "^2.0.0",
-    "levelup": "^2.0.0",
+    "interface-datastore": "^0.4.0",
     "mkdirp": "^0.5.1",
     "pull-stream": "^3.6.1",
     "write-file-atomic": "^2.3.0"
@@ -51,6 +48,9 @@
     "dirty-chai": "^2.0.1",
     "flow-bin": "^0.58.0",
     "flow-typed": "^2.2.3",
+    "level-js": "^2.2.4",
+    "leveldown": "^2.0.0",
+    "levelup": "^2.0.0",
     "memdown": "^1.4.1",
     "rimraf": "^2.6.2"
   },
