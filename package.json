@@ -7,7 +7,6 @@
     "lint": "aegir-lint",
     "test": "aegir-test --env node",
     "flow": "flow",
-    "flow-install": "flow-typed install",
     "release": "aegir-release --env node --docs",
     "release-minor": "aegir-release --type minor --env node --docs",
     "release-major": "aegir-release --type major --env node --docs",
