@@ -7,6 +7,7 @@
     "lint": "aegir-lint",
     "test": "aegir-test --env node",
     "flow": "flow",
+    "flow-install": "flow-typed install",
     "release": "aegir-release --env node --docs",
     "release-minor": "aegir-release --type minor --env node --docs",
     "release-major": "aegir-release --type major --env node --docs",
@@ -50,6 +51,7 @@
     "cids": "^0.5.1",
     "dirty-chai": "^2.0.1",
     "flow-bin": "^0.51.0",
+    "flow-typed": "^2.2.3",
     "memdown": "^1.2.4",
     "rimraf": "^2.6.1"
   },
