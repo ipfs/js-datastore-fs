@@ -11,7 +11,7 @@
     "release-minor": "aegir release --type minor --target node --docs",
     "release-major": "aegir release --type major --target node --docs",
     "coverage": "aegir coverage",
-    "coverage-publish": "aegir coverage --provider coveralls",
+    "coverage-publish": "aegir coverage --provider codecov",
     "docs": "aegir docs"
   },
   "repository": {
