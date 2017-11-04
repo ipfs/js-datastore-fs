@@ -265,8 +265,8 @@ class FsDatastore {
   query (q /* : Query<Buffer> */) /* : QueryResult<Buffer> */ {
     // glob expects a POSIX path
     let prefix = q.prefix || '**'
-    let pattern =
-      path.join(this.path, prefix, '*' + this.opts.extension)
+    let pattern = path
+      .join(this.path, prefix, '*' + this.opts.extension)
       .split(path.sep)
       .join('/')
     let tasks = [pull.values(glob.sync(pattern))]
