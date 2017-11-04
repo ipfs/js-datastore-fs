@@ -139,7 +139,7 @@ describe('FsDatastore', () => {
       }
     })
   })
-
+  
   describe('interface-datastore (sharding(fs))', () => {
     const dir = utils.tmpdir()
 
