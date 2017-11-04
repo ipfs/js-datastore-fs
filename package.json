@@ -4,15 +4,15 @@
   "description": "Datastore implementation with file system backend",
   "main": "src/index.js",
   "scripts": {
-    "lint": "aegir-lint",
-    "test": "aegir-test --env node",
+    "lint": "aegir lint",
+    "test": "aegir test --target node",
     "flow": "flow",
-    "release": "aegir-release --env node --docs",
-    "release-minor": "aegir-release --type minor --env node --docs",
-    "release-major": "aegir-release --type major --env node --docs",
-    "coverage": "aegir-coverage",
-    "coverage-publish": "aegir-coverage publish",
-    "docs": "aegir-docs"
+    "release": "aegir release --target node --docs",
+    "release-minor": "aegir release --type minor --target node --docs",
+    "release-major": "aegir release --type major --target node --docs",
+    "coverage": "aegir coverage",
+    "coverage-publish": "aegir coverage --provider coveralls",
+    "docs": "aegir docs"
   },
   "repository": {
     "type": "git",
@@ -32,27 +32,27 @@
   },
   "homepage": "https://github.com/ipfs/js-datastore-fs#readme",
   "dependencies": {
-    "datastore-core": "^0.3.0",
+    "datastore-core": "github:ipfs/js-datastore-core#windows-interop",
+    "glob": "^7.1.2",
     "graceful-fs": "^4.1.11",
-    "interface-datastore": "^0.3.0",
-    "level-js": "^2.2.4",
-    "leveldown": "^1.7.2",
-    "levelup": "^1.3.8",
+    "interface-datastore": "^0.4.0",
     "mkdirp": "^0.5.1",
-    "pull-glob": "^1.0.6",
-    "pull-stream": "^3.6.0",
-    "write-file-atomic": "^2.1.0"
+    "pull-stream": "^3.6.1",
+    "write-file-atomic": "^2.3.0"
   },
   "devDependencies": {
-    "aegir": "^11.0.2",
+    "aegir": "^12.1.3",
     "async": "^2.5.0",
-    "chai": "^4.1.0",
-    "cids": "^0.5.1",
+    "chai": "^4.1.2",
+    "cids": "~0.5.2",
     "dirty-chai": "^2.0.1",
-    "flow-bin": "^0.51.0",
+    "flow-bin": "^0.58.0",
     "flow-typed": "^2.2.3",
-    "memdown": "^1.2.4",
-    "rimraf": "^2.6.1"
+    "level-js": "^2.2.4",
+    "leveldown": "^2.0.0",
+    "levelup": "^2.0.0",
+    "memdown": "^1.4.1",
+    "rimraf": "^2.6.2"
   },
   "contributors": [
     "David Dias <daviddias.p@gmail.com>",
