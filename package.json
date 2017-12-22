@@ -6,6 +6,7 @@
   "scripts": {
     "lint": "aegir lint",
     "test": "aegir test --target node",
+    "test:node": "aegir test --target node",
     "flow": "flow",
     "release": "aegir release --target node --docs",
     "release-minor": "aegir release --type minor --target node --docs",
