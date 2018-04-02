@@ -26,7 +26,8 @@ const Key = require('interface-datastore').Key
 type FsOptions = {
   createIfMissing: bool,
   errorIfExists: bool,
-  extension: string
+  extension: string,
+  sync: bool
 }
 */
 
@@ -45,7 +46,8 @@ class FsDatastore {
     this.opts = Object.assign({}, {
       createIfMissing: true,
       errorIfExists: false,
-      extension: '.data'
+      extension: '.data',
+      sync: true
     }, opts)
 
     if (this.opts.createIfMissing) {
@@ -156,7 +158,7 @@ class FsDatastore {
     const file = parts.file.slice(0, -this.opts.extension.length)
     waterfall([
       (cb) => mkdirp(parts.dir, { fs: fs }, cb),
-      (cb) => writeFile(file, val, cb)
+      (cb) => writeFile(file, val, { sync: this.opts.sync }, cb)
     ], (err) => callback(err))
   }
 
@@ -172,7 +174,7 @@ class FsDatastore {
     const parts = this._encode(key)
     waterfall([
       (cb) => mkdirp(parts.dir, { fs: fs }, cb),
-      (cb) => writeFile(parts.file, val, cb)
+      (cb) => writeFile(parts.file, val, { sync: this.opts.sync }, cb)
     ], (err) => callback(err))
   }
 
