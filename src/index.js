@@ -225,7 +225,10 @@ class FsDatastore {
    */
   delete (key /* : Key */, callback /* : Callback<void> */) /* : void */ {
     const parts = this._encode(key)
-    fs.unlink(parts.file, callback)
+    fs.unlink(parts.file, (err) => {
+      // Avoid injection of additional params, we only need the error
+      callback(err)
+    })
   }
 
   /**
