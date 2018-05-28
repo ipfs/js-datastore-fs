@@ -1,3 +1,14 @@
+<a name="0.5.0"></a>
+# [0.5.0](https://github.com/ipfs/js-datastore-fs/compare/v0.4.2...v0.5.0) (2018-05-28)
+
+
+### Bug Fixes
+
+* add basic flowtype for glob to fix flow runner ([ef6c1f0](https://github.com/ipfs/js-datastore-fs/commit/ef6c1f0))
+* prevent delete from sending multiple args in callback ([0940452](https://github.com/ipfs/js-datastore-fs/commit/0940452))
+
+
+
 <a name="0.4.2"></a>
 ## [0.4.2](https://github.com/ipfs/js-datastore-fs/compare/v0.4.1...v0.4.2) (2017-12-05)
 
