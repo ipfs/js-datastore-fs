@@ -15,7 +15,9 @@ const path = require('path')
 
 const asyncFilter = require('interface-datastore').utils.asyncFilter
 const asyncSort = require('interface-datastore').utils.asyncSort
-const Key = require('interface-datastore').Key
+const IDatastore = require('interface-datastore')
+const Key = IDatastore.Key
+const Errors = IDatastore.Errors
 
 /* :: export type FsInputOptions = {
   createIfMissing?: bool,
@@ -173,7 +175,12 @@ class FsDatastore {
     waterfall([
       (cb) => mkdirp(parts.dir, { fs: fs }, cb),
       (cb) => writeFile(parts.file, val, cb)
-    ], (err) => callback(err))
+    ], (err) => {
+      if (err) {
+        return callback(Errors.dbWriteFailedError(err))
+      }
+      callback()
+    })
   }
 
   /**
@@ -187,7 +194,12 @@ class FsDatastore {
     const parts = this._encode(key)
     let file = parts.file
     file = file.slice(0, -this.opts.extension.length)
-    fs.readFile(file, callback)
+    fs.readFile(file, (err, data) => {
+      if (err) {
+        return callback(Errors.notFoundError(err))
+      }
+      callback(null, data)
+    })
   }
 
   /**
@@ -199,7 +211,12 @@ class FsDatastore {
    */
   get (key /* : Key */, callback /* : Callback<Buffer> */) /* : void */ {
     const parts = this._encode(key)
-    fs.readFile(parts.file, callback)
+    fs.readFile(parts.file, (err, data) => {
+      if (err) {
+        return callback(Errors.notFoundError(err))
+      }
+      callback(null, data)
+    })
   }
 
   /**
@@ -226,8 +243,10 @@ class FsDatastore {
   delete (key /* : Key */, callback /* : Callback<void> */) /* : void */ {
     const parts = this._encode(key)
     fs.unlink(parts.file, (err) => {
-      // Avoid injection of additional params, we only need the error
-      callback(err)
+      if (err) {
+        return callback(Errors.dbDeleteFailedError(err))
+      }
+      callback()
     })
   }
 
