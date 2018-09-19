@@ -1,3 +1,13 @@
+<a name="0.6.0"></a>
+# [0.6.0](https://github.com/ipfs/js-datastore-fs/compare/v0.5.0...v0.6.0) (2018-09-19)
+
+
+### Features
+
+* add basic error codes ([c0fb50b](https://github.com/ipfs/js-datastore-fs/commit/c0fb50b))
+
+
+
 <a name="0.5.0"></a>
 # [0.5.0](https://github.com/ipfs/js-datastore-fs/compare/v0.4.2...v0.5.0) (2018-05-28)
 
