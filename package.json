@@ -34,21 +34,21 @@
   "homepage": "https://github.com/ipfs/js-datastore-fs#readme",
   "dependencies": {
     "async": "^2.6.1",
-    "datastore-core": "~0.4.0",
-    "glob": "^7.1.2",
+    "datastore-core": "~0.5.0",
+    "glob": "^7.1.3",
     "graceful-fs": "^4.1.11",
-    "interface-datastore": "^0.4.2",
+    "interface-datastore": "~0.5.0",
     "mkdirp": "~0.5.1",
-    "pull-stream": "^3.6.8",
+    "pull-stream": "^3.6.9",
     "write-file-atomic": "^2.3.0"
   },
   "devDependencies": {
-    "aegir": "^13.1.0",
+    "aegir": "^15.2.0",
     "chai": "^4.1.2",
     "cids": "~0.5.3",
     "dirty-chai": "^2.0.1",
-    "flow-bin": "~0.60.1",
-    "flow-typed": "^2.4.0",
+    "flow-bin": "~0.81.0",
+    "flow-typed": "^2.5.1",
     "memdown": "^1.4.1",
     "rimraf": "^2.6.2"
   },
