@@ -1,6 +1,6 @@
 {
   "name": "datastore-fs",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "Datastore implementation with file system backend",
   "main": "src/index.js",
   "scripts": {
@@ -59,6 +59,7 @@
     "Jacob Heun <jacobheun@gmail.com>",
     "Richard Schneider <makaretu@gmail.com>",
     "Stephen Whitmore <noffle@users.noreply.github.com>",
+    "Vasco Santos <vasco.santos@moxy.studio>",
     "Victor Bjelkholm <victorbjelkholm@gmail.com>"
   ]
 }
