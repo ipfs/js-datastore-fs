@@ -1,3 +1,8 @@
+<a name="0.7.0"></a>
+# [0.7.0](https://github.com/ipfs/js-datastore-fs/compare/v0.6.0...v0.7.0) (2018-10-25)
+
+
+
 <a name="0.6.0"></a>
 # [0.6.0](https://github.com/ipfs/js-datastore-fs/compare/v0.5.0...v0.6.0) (2018-09-19)
 
