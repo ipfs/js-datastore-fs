@@ -12,6 +12,10 @@
 
 > Datastore implementation with file system backend.
 
+## Lead Maintainer
+
+[Pedro Teixeira](https://github.com/pgte)
+
 ## Table of Contents
 
 - [Install](#install)
