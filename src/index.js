@@ -10,7 +10,7 @@ const setImmediate = require('async/setImmediate')
 const waterfall = require('async/series')
 const each = require('async/each')
 const mkdirp = require('mkdirp')
-const writeFile = require('write-file-atomic')
+const writeFile = require('fast-write-atomic')
 const path = require('path')
 
 const asyncFilter = require('interface-datastore').utils.asyncFilter
