@@ -1,3 +1,13 @@
+<a name="0.8.0"></a>
+# [0.8.0](https://github.com/ipfs/js-datastore-fs/compare/v0.7.0...v0.8.0) (2019-01-24)
+
+
+### Performance Improvements
+
+* use fast-write-atomic instead of write-file-atomic ([bf677b4](https://github.com/ipfs/js-datastore-fs/commit/bf677b4))
+
+
+
 <a name="0.7.0"></a>
 # [0.7.0](https://github.com/ipfs/js-datastore-fs/compare/v0.6.0...v0.7.0) (2018-10-25)
 
