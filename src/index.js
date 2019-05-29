@@ -1,7 +1,4 @@
-/* @flow */
 'use strict'
-
-/* :: import type {Batch, Query, QueryResult, Callback} from 'interface-datastore' */
 
 const fs = require('fs')
 const glob = require('glob')
@@ -25,19 +22,6 @@ const fsUnlink = promisify(fs.unlink || noop)
 const Key = IDatastore.Key
 const Errors = IDatastore.Errors
 
-/* :: export type FsInputOptions = {
-  createIfMissing?: bool,
-  errorIfExists?: bool,
-  extension?: string
-}
-
-type FsOptions = {
-  createIfMissing: bool,
-  errorIfExists: bool,
-  extension: string
-}
-*/
-
 /**
  * A datastore backed by the file system.
  *
@@ -45,10 +29,7 @@ type FsOptions = {
  * to the file system as is.
  */
 class FsDatastore {
-  /* :: path: string */
-  /* :: opts: FsOptions */
-
-  constructor (location /* : string */, opts /* : ?FsInputOptions */) {
+  constructor (location, opts) {
     this.path = path.resolve(location)
     this.opts = Object.assign({}, {
       createIfMissing: true,
@@ -63,7 +44,7 @@ class FsDatastore {
     }
   }
 
-  open () /* : void */ {
+  open () {
     this._openOrCreate()
   }
 
@@ -118,7 +99,7 @@ class FsDatastore {
    * @param {Key} key
    * @returns {{string, string}}
    */
-  _encode (key /* : Key */) /* : {dir: string, file: string} */ {
+  _encode (key) {
     const parent = key.parent().toString()
     const dir = path.join(this.path, parent)
     const name = key.toString().slice(parent.length)
@@ -137,7 +118,7 @@ class FsDatastore {
    * @param {string} file
    * @returns {Key}
    */
-  _decode (file /* : string */) /* : Key */ {
+  _decode (file) {
     const ext = this.opts.extension
     if (path.extname(file) !== ext) {
       throw new Error(`Invalid extension: ${path.extname(file)}`)
@@ -157,7 +138,7 @@ class FsDatastore {
    * @param {Buffer} val
    * @returns {Promise<void>}
    */
-  async putRaw (key /* : Key */, val /* : Buffer */) /* : void */ {
+  async putRaw (key, val) {
     const parts = this._encode(key)
     const file = parts.file.slice(0, -this.opts.extension.length)
     await asyncMkdirp(parts.dir, { fs: fs })
@@ -171,7 +152,7 @@ class FsDatastore {
    * @param {Buffer} val
    * @returns {Promise<void>}
    */
-  async put (key /* : Key */, val /* : Buffer */) /* : void */ {
+  async put (key, val) {
     const parts = this._encode(key)
     try {
       await asyncMkdirp(parts.dir, { fs: fs })
@@ -187,7 +168,7 @@ class FsDatastore {
    * @param {Key} key
    * @returns {Promise<Buffer>}
    */
-  async getRaw (key /* : Key */) /* : void */ {
+  async getRaw (key) {
     const parts = this._encode(key)
     let file = parts.file
     file = file.slice(0, -this.opts.extension.length)
@@ -206,7 +187,7 @@ class FsDatastore {
    * @param {Key} key
    * @returns {Promise<Buffer>}
    */
-  async get (key /* : Key */) /* : void */ {
+  async get (key) {
     const parts = this._encode(key)
     let data
     try {
@@ -223,7 +204,7 @@ class FsDatastore {
    * @param {Key} key
    * @returns {Promise<bool>}
    */
-  async has (key /* : Key */) /* : void */ {
+  async has (key) {
     const parts = this._encode(key)
     try {
       await fsAccess(parts.file)
@@ -239,7 +220,7 @@ class FsDatastore {
    * @param {Key} key
    * @returns {Promise<void>}
    */
-  async delete (key /* : Key */) /* : void */ {
+  async delete (key) {
     const parts = this._encode(key)
     try {
       await fsUnlink(parts.file)
@@ -257,14 +238,14 @@ class FsDatastore {
    *
    * @returns {Batch}
    */
-  batch () /* : Batch<Buffer> */ {
+  batch () {
     const puts = []
     const deletes = []
     return {
-      put (key /* : Key */, value /* : Buffer */) /* : void */ {
+      put (key, value) {
         puts.push({ key: key, value: value })
       },
-      delete (key /* : Key */) /* : void */ {
+      delete (key) {
         deletes.push(key)
       },
       commit: () /* :  Promise<void> */ => {
@@ -285,7 +266,7 @@ class FsDatastore {
    * @param {Object} q
    * @returns {Iterable}
    */
-  query (q /* : Query<Buffer> */) /* : QueryResult<Buffer> */ {
+  query (q) {
     // glob expects a POSIX path
     let prefix = q.prefix || '**'
     let pattern = path
@@ -329,7 +310,7 @@ class FsDatastore {
   /**
    * Close the store.
    */
-  close () /* : Promise<void> */ { }
+  close () { }
 }
 
 module.exports = FsDatastore
