@@ -48,8 +48,6 @@
     "cids": "~0.7.1",
     "detect-node": "^2.0.4",
     "dirty-chai": "^2.0.1",
-    "flow-bin": "~0.99.0",
-    "flow-typed": "^2.5.1",
     "memdown": "^4.0.0",
     "rimraf": "^2.6.2"
   },
