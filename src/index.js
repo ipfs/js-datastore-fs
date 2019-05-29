@@ -3,7 +3,7 @@
 
 /* :: import type {Batch, Query, QueryResult, Callback} from 'interface-datastore' */
 
-const fs = require('graceful-fs')
+const fs = require('fs')
 const glob = require('glob')
 const mkdirp = require('mkdirp')
 const promisify = require('util').promisify
@@ -16,10 +16,11 @@ const map = require('interface-datastore').utils.map
 const sortAll = require('interface-datastore').utils.sortAll
 const IDatastore = require('interface-datastore')
 
+const noop = () => {}
 const asyncMkdirp = promisify(require('mkdirp'))
-const fsAccess = promisify(fs.access)
-const fsReadFile = promisify(fs.readFile)
-const fsUnlink = promisify(fs.unlink)
+const fsAccess = promisify(fs.access || noop)
+const fsReadFile = promisify(fs.readFile || noop)
+const fsUnlink = promisify(fs.unlink || noop)
 
 const Key = IDatastore.Key
 const Errors = IDatastore.Errors

@@ -7,18 +7,28 @@ chai.use(require('dirty-chai'))
 const expect = chai.expect
 const path = require('path')
 const promisify = require('util').promisify
+const noop = () => {}
 const mkdirp = require('mkdirp')
 const rimraf = promisify(require('rimraf'))
 const fs = require('fs')
-const fsReadFile = promisify(require('fs').readFile)
+const fsReadFile = promisify(require('fs').readFile || noop)
 const Key = require('interface-datastore').Key
 const utils = require('interface-datastore').utils
 const ShardingStore = require('datastore-core').ShardingDatastore
 const sh = require('datastore-core').shard
+const isNode = require('detect-node')
 
 const FsStore = require('../src')
 
 describe('FsDatastore', () => {
+  if (!isNode) {
+    it('only supports node.js', () => {
+
+    })
+
+    return
+  }
+
   describe('construction', () => {
     it('defaults - folder missing', () => {
       const dir = utils.tmpdir()
