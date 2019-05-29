@@ -5,14 +5,12 @@
 const chai = require('chai')
 chai.use(require('dirty-chai'))
 const expect = chai.expect
-const pull = require('pull-stream')
 const path = require('path')
+const promisify = require('util').promisify
 const mkdirp = require('mkdirp')
-const rimraf = require('rimraf')
-const waterfall = require('async/waterfall')
-const parallel = require('async/parallel')
+const rimraf = promisify(require('rimraf'))
 const fs = require('fs')
-
+const fsReadFile = promisify(require('fs').readFile)
 const Key = require('interface-datastore').Key
 const utils = require('interface-datastore').utils
 const ShardingStore = require('datastore-core').ShardingDatastore
@@ -20,8 +18,8 @@ const sh = require('datastore-core').shard
 
 const FsStore = require('../src')
 
-describe('FsDatastore', () => {
-  describe('construction', () => {
+describe('FsDatastore', async () => {
+  describe('construction', async () => {
     it('defaults - folder missing', () => {
       const dir = utils.tmpdir()
       expect(
@@ -40,7 +38,7 @@ describe('FsDatastore', () => {
     it('createIfMissing: false - folder missing', () => {
       const dir = utils.tmpdir()
       expect(
-        () => new FsStore(dir, {createIfMissing: false})
+        () => new FsStore(dir, { createIfMissing: false })
       ).to.throw()
     })
 
@@ -48,7 +46,7 @@ describe('FsDatastore', () => {
       const dir = utils.tmpdir()
       mkdirp.sync(dir)
       expect(
-        () => new FsStore(dir, {errorIfExists: true})
+        () => new FsStore(dir, { errorIfExists: true })
       ).to.throw()
     })
   })
@@ -71,71 +69,52 @@ describe('FsDatastore', () => {
     )
   })
 
-  it('sharding files', (done) => {
+  it('sharding files', async () => {
     const dir = utils.tmpdir()
     const fstore = new FsStore(dir)
     const shard = new sh.NextToLast(2)
-    waterfall([
-      (cb) => ShardingStore.create(fstore, shard, cb),
-      (cb) => fs.readFile(path.join(dir, sh.SHARDING_FN), cb),
-      (file, cb) => {
-        expect(file.toString()).to.be.eql('/repo/flatfs/shard/v1/next-to-last/2\n')
-        fs.readFile(path.join(dir, sh.README_FN), cb)
-      },
-      (readme, cb) => {
-        expect(readme.toString()).to.be.eql(sh.readme)
-        cb()
-      },
-      (cb) => rimraf(dir, cb)
-    ], done)
+    await ShardingStore.create(fstore, shard)
+
+    const file = await fsReadFile(path.join(dir, sh.SHARDING_FN))
+    expect(file.toString()).to.be.eql('/repo/flatfs/shard/v1/next-to-last/2\n')
+
+    const readme = await fsReadFile(path.join(dir, sh.README_FN))
+    expect(readme.toString()).to.be.eql(sh.readme)
+    await rimraf(dir)
   })
 
-  it('query', (done) => {
+  it('query', async () => {
     const fs = new FsStore(path.join(__dirname, 'test-repo', 'blocks'))
-
-    pull(
-      fs.query({}),
-      pull.collect((err, res) => {
-        expect(err).to.not.exist()
-        expect(res).to.have.length(23)
-        done()
-      })
-    )
+    let res = []
+    for await (const q of fs.query({})) {
+      res.push(q)
+    }
+    expect(res).to.have.length(23)
   })
 
-  it('interop with go', (done) => {
+  it('interop with go', async () => {
     const repodir = path.join(__dirname, '/test-repo/blocks')
     const fstore = new FsStore(repodir)
     const key = new Key('CIQGFTQ7FSI2COUXWWLOQ45VUM2GUZCGAXLWCTOKKPGTUWPXHBNIVOY')
     const expected = fs.readFileSync(path.join(repodir, 'VO', key.toString() + '.data'))
-
-    waterfall([
-      (cb) => ShardingStore.open(fstore, cb),
-      (flatfs, cb) => parallel([
-        (cb) => pull(
-          flatfs.query({}),
-          pull.collect(cb)
-        ),
-        (cb) => flatfs.get(key, cb)
-      ], (err, res) => {
-        expect(err).to.not.exist()
-        expect(res[0]).to.have.length(23)
-        expect(res[1]).to.be.eql(expected)
-
-        cb()
-      })
-    ], done)
+    const flatfs = await ShardingStore.open(fstore)
+    let res = await flatfs.get(key)
+    let queryResult = flatfs.query({})
+    let results = []
+    for await (const result of queryResult) results.push(result)
+    expect(results).to.have.length(23)
+    expect(res).to.be.eql(expected)
   })
 
   describe('interface-datastore', () => {
     const dir = utils.tmpdir()
 
     require('interface-datastore/src/tests')({
-      setup (callback) {
-        callback(null, new FsStore(dir))
+      setup: () => {
+        return new FsStore(dir)
       },
-      teardown (callback) {
-        rimraf(dir, callback)
+      teardown: () => {
+        return rimraf(dir)
       }
     })
   })
@@ -144,12 +123,12 @@ describe('FsDatastore', () => {
     const dir = utils.tmpdir()
 
     require('interface-datastore/src/tests')({
-      setup (callback) {
+      setup: () => {
         const shard = new sh.NextToLast(2)
-        ShardingStore.createOrOpen(new FsStore(dir), shard, callback)
+        return ShardingStore.createOrOpen(new FsStore(dir), shard)
       },
-      teardown (callback) {
-        rimraf(dir, callback)
+      teardown: () => {
+        return rimraf(dir)
       }
     })
   })
