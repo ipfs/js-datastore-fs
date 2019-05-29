@@ -73,11 +73,11 @@ class FsDatastore {
    */
   _open () {
     if (!fs.existsSync(this.path)) {
-      throw new Error(`Datastore directory: ${this.path} does not exist`)
+      throw Errors.notFoundError(new Error(`Datastore directory: ${this.path} does not exist`))
     }
 
     if (this.opts.errorIfExists) {
-      throw new Error(`Datastore directory: ${this.path} already exists`)
+      throw Errors.dbOpenFailedError(new Error(`Datastore directory: ${this.path} already exists`))
     }
   }
 
@@ -101,7 +101,7 @@ class FsDatastore {
     try {
       this._open()
     } catch (err) {
-      if (err.message.match('does not exist')) {
+      if (err.code === 'ERR_NOT_FOUND') {
         this._create()
         return
       }
@@ -243,6 +243,10 @@ class FsDatastore {
     try {
       await fsUnlink(parts.file)
     } catch (err) {
+      if (err.code === 'ENOENT') {
+        return
+      }
+
       throw Errors.dbDeleteFailedError(err)
     }
   }
@@ -262,9 +266,14 @@ class FsDatastore {
       delete (key /* : Key */) /* : void */ {
         deletes.push(key)
       },
-      commit: async () /* :  Promise<void> */ => {
-        await Promise.all((puts.map((put) => this.put(put.key, put.value))))
-        await Promise.all((deletes.map((del) => this.delete(del))))
+      commit: () /* :  Promise<void> */ => {
+        return Promise.all(
+          puts
+            .map((put) => this.put(put.key, put.value))
+            .concat(
+              deletes.map((del) => this.delete(del))
+            )
+        )
       }
     }
   }
@@ -318,10 +327,8 @@ class FsDatastore {
 
   /**
    * Close the store.
-   *
-   * @returns {Promise<void>}
    */
-  async close () /* : Promise<void> */ { }
+  close () /* : Promise<void> */ { }
 }
 
 module.exports = FsDatastore

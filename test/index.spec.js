@@ -18,8 +18,8 @@ const sh = require('datastore-core').shard
 
 const FsStore = require('../src')
 
-describe('FsDatastore', async () => {
-  describe('construction', async () => {
+describe('FsDatastore', () => {
+  describe('construction', () => {
     it('defaults - folder missing', () => {
       const dir = utils.tmpdir()
       expect(
@@ -67,6 +67,37 @@ describe('FsDatastore', async () => {
     ).to.eql(
       new Key('hello/world/test:other')
     )
+  })
+
+  it('deleting files', async () => {
+    const dir = utils.tmpdir()
+    const fs = new FsStore(dir)
+    const key = new Key('1234')
+
+    await fs.put(key, Buffer.from([0, 1, 2, 3]))
+    await fs.delete(key)
+
+    try {
+      await fs.get(key)
+      throw new Error('Should have errored')
+    } catch (err) {
+      expect(err.code).to.equal('ERR_NOT_FOUND')
+    }
+  })
+
+  it('deleting non-existent files', async () => {
+    const dir = utils.tmpdir()
+    const fs = new FsStore(dir)
+    const key = new Key('5678')
+
+    await fs.delete(key)
+
+    try {
+      await fs.get(key)
+      throw new Error('Should have errored')
+    } catch (err) {
+      expect(err.code).to.equal('ERR_NOT_FOUND')
+    }
   })
 
   it('sharding files', async () => {
