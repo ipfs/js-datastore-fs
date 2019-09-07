@@ -10,7 +10,7 @@ const setImmediate = require('async/setImmediate')
 const waterfall = require('async/series')
 const each = require('async/each')
 const mkdirp = require('mkdirp')
-const writeFile = require('fast-write-atomic')
+const writeAtomic = require('fast-write-atomic')
 const path = require('path')
 
 const asyncFilter = require('interface-datastore').utils.asyncFilter
@@ -18,6 +18,32 @@ const asyncSort = require('interface-datastore').utils.asyncSort
 const IDatastore = require('interface-datastore')
 const Key = IDatastore.Key
 const Errors = IDatastore.Errors
+
+function writeFile (path, contents, callback) {
+  writeAtomic(path, contents, (err) => {
+    if (err) {
+      if (err.code === 'EPERM' && err.syscall === 'rename') {
+        // fast-write-atomic writes a file to a temp location before renaming it.
+        // On Windows, if the final file already exists this error is thrown.
+        // No such error is thrown on Linux/Mac
+        // Make sure we can read & write to this file
+        return fs.access(path, fs.constants.F_OK | fs.constants.W_OK, (err) => {
+          if (err) {
+            return callback(err)
+          }
+
+          // The file was created by another context - this means there were
+          // attempts to write the same block by two different function calls
+          return callback()
+        })
+      }
+
+      return callback(err)
+    }
+
+    callback()
+  })
+}
 
 /* :: export type FsInputOptions = {
   createIfMissing?: bool,
