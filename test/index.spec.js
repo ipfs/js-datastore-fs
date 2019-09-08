@@ -172,4 +172,19 @@ describe('FsDatastore', () => {
       }
     })
   })
+
+  it('can survive concurrent writes', async () => {
+    const dir = utils.tmpdir()
+    const fstore = new FsStore(dir)
+    const key = new Key('CIQGFTQ7FSI2COUXWWLOQ45VUM2GUZCGAXLWCTOKKPGTUWPXHBNIVOY')
+    const value = Buffer.from('Hello world')
+
+    await Promise.all(
+      new Array(100).fill(0).map(() => fstore.put(key, value))
+    )
+
+    const res = await fstore.get(key)
+
+    expect(res).to.deep.equal(value)
+  })
 })

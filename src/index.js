@@ -4,7 +4,7 @@ const fs = require('fs')
 const glob = require('glob')
 const mkdirp = require('mkdirp')
 const promisify = require('util').promisify
-const writeFile = promisify(require('fast-write-atomic'))
+const writeAtomic = promisify(require('fast-write-atomic'))
 const path = require('path')
 
 const filter = require('interface-datastore').utils.filter
@@ -21,6 +21,26 @@ const fsUnlink = promisify(fs.unlink || noop)
 
 const Key = IDatastore.Key
 const Errors = IDatastore.Errors
+
+async function writeFile (path, contents) {
+  try {
+    await writeAtomic(path, contents)
+  } catch (err) {
+    if (err.code === 'EPERM' && err.syscall === 'rename') {
+      // fast-write-atomic writes a file to a temp location before renaming it.
+      // On Windows, if the final file already exists this error is thrown.
+      // No such error is thrown on Linux/Mac
+      // Make sure we can read & write to this file
+      await fsAccess(path, fs.constants.F_OK | fs.constants.W_OK)
+
+      // The file was created by another context - this means there were
+      // attempts to write the same block by two different function calls
+      return
+    }
+
+    throw err
+  }
+}
 
 /**
  * A datastore backed by the file system.
