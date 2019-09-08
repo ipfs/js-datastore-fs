@@ -1,6 +1,6 @@
 {
   "name": "datastore-fs",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "Datastore implementation with file system backend",
   "leadMaintainer": "Pedro Teixeira <pedro@protocol.ai>",
   "main": "src/index.js",
@@ -63,6 +63,7 @@
     "Richard Schneider <makaretu@gmail.com>",
     "Stephen Whitmore <noffle@users.noreply.github.com>",
     "Vasco Santos <vasco.santos@moxy.studio>",
-    "Victor Bjelkholm <victorbjelkholm@gmail.com>"
+    "Victor Bjelkholm <victorbjelkholm@gmail.com>",
+    "achingbrain <alex@achingbrain.net>"
   ]
 }
