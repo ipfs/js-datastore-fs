@@ -153,4 +153,29 @@ describe('FsDatastore', () => {
       }
     })
   })
+
+  it('can survive concurrent writes', (done) => {
+    const dir = utils.tmpdir()
+    const fstore = new FsStore(dir)
+    const key = new Key('CIQGFTQ7FSI2COUXWWLOQ45VUM2GUZCGAXLWCTOKKPGTUWPXHBNIVOY')
+    const value = Buffer.from('Hello world')
+
+    parallel(
+      new Array(100).fill(0).map(() => {
+        return (cb) => {
+          fstore.put(key, value, cb)
+        }
+      }),
+      (err) => {
+        expect(err).to.not.exist()
+
+        fstore.get(key, (err, res) => {
+          expect(err).to.not.exist()
+          expect(res).to.deep.equal(value)
+
+          done()
+        })
+      }
+    )
+  })
 })
