@@ -1,3 +1,13 @@
+<a name="0.8.1"></a>
+## [0.8.1](https://github.com/ipfs/js-datastore-fs/compare/v0.8.0...v0.8.1) (2019-09-08)
+
+
+### Bug Fixes
+
+* handle concurrent writes on windows ([5aea24f](https://github.com/ipfs/js-datastore-fs/commit/5aea24f))
+
+
+
 <a name="0.8.0"></a>
 # [0.8.0](https://github.com/ipfs/js-datastore-fs/compare/v0.7.0...v0.8.0) (2019-01-24)
 
