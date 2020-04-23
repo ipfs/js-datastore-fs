@@ -288,12 +288,12 @@ class FsDatastore {
    */
   query (q) {
     // glob expects a POSIX path
-    let prefix = q.prefix || '**'
-    let pattern = path
+    const prefix = q.prefix || '**'
+    const pattern = path
       .join(this.path, prefix, '*' + this.opts.extension)
       .split(path.sep)
       .join('/')
-    let files = glob.sync(pattern)
+    const files = glob.sync(pattern)
     let it
     if (!q.keysOnly) {
       it = map(files, async (f) => {

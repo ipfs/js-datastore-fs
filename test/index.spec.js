@@ -125,7 +125,7 @@ describe('FsDatastore', () => {
 
   it('query', async () => {
     const fs = new FsStore(path.join(__dirname, 'test-repo', 'blocks'))
-    let res = []
+    const res = []
     for await (const q of fs.query({})) {
       res.push(q)
     }
@@ -138,9 +138,9 @@ describe('FsDatastore', () => {
     const key = new Key('CIQGFTQ7FSI2COUXWWLOQ45VUM2GUZCGAXLWCTOKKPGTUWPXHBNIVOY')
     const expected = fs.readFileSync(path.join(repodir, 'VO', key.toString() + '.data'))
     const flatfs = await ShardingStore.open(fstore)
-    let res = await flatfs.get(key)
-    let queryResult = flatfs.query({})
-    let results = []
+    const res = await flatfs.get(key)
+    const queryResult = flatfs.query({})
+    const results = []
     for await (const result of queryResult) results.push(result)
     expect(results).to.have.length(23)
     expect(res).to.be.eql(expected)
