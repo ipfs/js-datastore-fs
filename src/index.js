@@ -14,7 +14,6 @@ const sortAll = require('interface-datastore').utils.sortAll
 const IDatastore = require('interface-datastore')
 
 const noop = () => {}
-const asyncMkdirp = promisify(require('mkdirp'))
 const fsAccess = promisify(fs.access || noop)
 const fsReadFile = promisify(fs.readFile || noop)
 const fsUnlink = promisify(fs.unlink || noop)
@@ -161,7 +160,7 @@ class FsDatastore {
   async putRaw (key, val) {
     const parts = this._encode(key)
     const file = parts.file.slice(0, -this.opts.extension.length)
-    await asyncMkdirp(parts.dir, { fs: fs })
+    await mkdirp(parts.dir, { fs: fs })
     await writeFile(file, val)
   }
 
@@ -175,7 +174,7 @@ class FsDatastore {
   async put (key, val) {
     const parts = this._encode(key)
     try {
-      await asyncMkdirp(parts.dir, { fs: fs })
+      await mkdirp(parts.dir, { fs: fs })
       await writeFile(parts.file, val)
     } catch (err) {
       throw Errors.dbWriteFailedError(err)
