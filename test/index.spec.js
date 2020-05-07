@@ -57,7 +57,7 @@ describe('FsDatastore', () => {
     it('errorIfExists: true - folder exists', () => {
       const dir = utils.tmpdir()
       mkdirp.sync(dir)
-      new FsStore(dir, { errorIfExists: true })
+      const store = new FsStore(dir, { errorIfExists: true })
       expect(
         () => store.open()
       ).to.throw()

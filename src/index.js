@@ -132,14 +132,13 @@ class FsDatastore extends Adapter {
    *
    * @param {Key} key
    * @param {Buffer} val
-   * @param {Object} options
    * @returns {Promise<void>}
    */
   async put (key, val) {
     const parts = this._encode(key)
     try {
       await mkdirp(parts.dir, { fs: fs })
-      await writeFile(parts.file, val, options)
+      await writeFile(parts.file, val)
     } catch (err) {
       throw Errors.dbWriteFailedError(err)
     }
@@ -149,10 +148,9 @@ class FsDatastore extends Adapter {
    * Read from the file system without extension.
    *
    * @param {Key} key
-   * @param {Object} options
    * @returns {Promise<Buffer>}
    */
-  async getRaw (key, options = {}) {
+  async getRaw (key) {
     const parts = this._encode(key)
     let file = parts.file
     file = file.slice(0, -this.opts.extension.length)
@@ -169,7 +167,6 @@ class FsDatastore extends Adapter {
    * Read from the file system.
    *
    * @param {Key} key
-   * @param {Object} options
    * @returns {Promise<Buffer>}
    */
   async get (key) {
@@ -203,7 +200,6 @@ class FsDatastore extends Adapter {
    * Delete the record under the given key.
    *
    * @param {Key} key
-   * @param {Object} options
    * @returns {Promise<void>}
    */
   async delete (key) {
