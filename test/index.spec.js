@@ -43,19 +43,23 @@ describe('FsDatastore', () => {
         () => new FsStore(dir)
       ).to.not.throw()
     })
+  })
 
+  describe('open', () => {
     it('createIfMissing: false - folder missing', () => {
       const dir = utils.tmpdir()
+      const store = new FsStore(dir, { createIfMissing: false })
       expect(
-        () => new FsStore(dir, { createIfMissing: false })
+        () => store.open()
       ).to.throw()
     })
 
     it('errorIfExists: true - folder exists', () => {
       const dir = utils.tmpdir()
       mkdirp.sync(dir)
+      new FsStore(dir, { errorIfExists: true })
       expect(
-        () => new FsStore(dir, { errorIfExists: true })
+        () => store.open()
       ).to.throw()
     })
   })
