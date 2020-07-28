@@ -16,6 +16,8 @@ const utils = require('interface-datastore').utils
 const ShardingStore = require('datastore-core').ShardingDatastore
 const sh = require('datastore-core').shard
 const isNode = require('detect-node')
+const TextEncoder = require('ipfs-utils/src/text-encoder')
+const utf8Encoder = new TextEncoder('utf8')
 
 const FsStore = require('../src')
 
@@ -87,7 +89,7 @@ describe('FsDatastore', () => {
     const fs = new FsStore(dir)
     const key = new Key('1234')
 
-    await fs.put(key, Buffer.from([0, 1, 2, 3]))
+    await fs.put(key, Uint8Array.from([0, 1, 2, 3]))
     await fs.delete(key)
 
     try {
@@ -181,7 +183,7 @@ describe('FsDatastore', () => {
     const dir = utils.tmpdir()
     const fstore = new FsStore(dir)
     const key = new Key('CIQGFTQ7FSI2COUXWWLOQ45VUM2GUZCGAXLWCTOKKPGTUWPXHBNIVOY')
-    const value = Buffer.from('Hello world')
+    const value = utf8Encoder.encode('Hello world')
 
     await Promise.all(
       new Array(100).fill(0).map(() => fstore.put(key, value))

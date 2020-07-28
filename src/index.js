@@ -1,7 +1,7 @@
 'use strict'
 
 const fs = require('fs')
-const glob = require('glob')
+const glob = require('it-glob')
 const mkdirp = require('mkdirp')
 const promisify = require('util').promisify
 const writeAtomic = promisify(require('fast-write-atomic'))
@@ -117,7 +117,7 @@ class FsDatastore extends Adapter {
    * Write to the file system without extension.
    *
    * @param {Key} key
-   * @param {Buffer} val
+   * @param {Uint8Array} val
    * @returns {Promise<void>}
    */
   async putRaw (key, val) {
@@ -131,11 +131,12 @@ class FsDatastore extends Adapter {
    * Store the given value under the key
    *
    * @param {Key} key
-   * @param {Buffer} val
+   * @param {Uint8Array} val
    * @returns {Promise<void>}
    */
   async put (key, val) {
     const parts = this._encode(key)
+
     try {
       await mkdirp(parts.dir, { fs: fs })
       await writeFile(parts.file, val)
@@ -148,7 +149,7 @@ class FsDatastore extends Adapter {
    * Read from the file system without extension.
    *
    * @param {Key} key
-   * @returns {Promise<Buffer>}
+   * @returns {Promise<Uint8Array>}
    */
   async getRaw (key) {
     const parts = this._encode(key)
@@ -167,7 +168,7 @@ class FsDatastore extends Adapter {
    * Read from the file system.
    *
    * @param {Key} key
-   * @returns {Promise<Buffer>}
+   * @returns {Promise<Uint8Array>}
    */
   async get (key) {
     const parts = this._encode(key)
@@ -216,22 +217,31 @@ class FsDatastore extends Adapter {
   }
 
   async * _all (q) { // eslint-disable-line require-await
-    // glob expects a POSIX path
-    const prefix = q.prefix || '**'
-    const pattern = path
-      .join(this.path, prefix, '*' + this.opts.extension)
+    let prefix = q.prefix || '**'
+
+    // strip leading slashes
+    prefix = prefix.replace(/^\/+/, '')
+
+    const pattern = `${prefix}/*${this.opts.extension}`
       .split(path.sep)
       .join('/')
-    const files = glob.sync(pattern)
+    const files = glob(this.path, pattern, {
+      absolute: true
+    })
 
     if (!q.keysOnly) {
-      yield * map(files, async (f) => {
-        const buf = await fsReadFile(f)
-        return {
-          key: this._decode(f),
-          value: buf
+      for await (const file of files) {
+        try {
+          const buf = await fsReadFile(file)
+
+          yield {
+            key: this._decode(file),
+            value: buf
+          }
+        } catch (err) {
+          console.info(err)
         }
-      })
+      }
     } else {
       yield * map(files, f => ({ key: this._decode(f) }))
     }
