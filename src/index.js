@@ -239,7 +239,11 @@ class FsDatastore extends Adapter {
             value: buf
           }
         } catch (err) {
-          console.info(err)
+          // if keys are removed from the datastore while the query is
+          // running, we may encounter missing files.
+          if (err.code !== 'ENOENT') {
+            throw err
+          }
         }
       }
     } else {

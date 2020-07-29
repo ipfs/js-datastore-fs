@@ -32,9 +32,9 @@
   },
   "homepage": "https://github.com/ipfs/js-datastore-fs#readme",
   "dependencies": {
-    "datastore-core": "ipfs/js-datastore-core#fix/remove-node-buffers",
+    "datastore-core": "^2.0.0",
     "fast-write-atomic": "^0.2.0",
-    "interface-datastore": "ipfs/interface-datastore#fix/remove-node-buffer",
+    "interface-datastore": "^2.0.0",
     "it-glob": "0.0.8",
     "mkdirp": "^1.0.4"
   },
