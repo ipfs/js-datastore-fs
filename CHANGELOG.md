@@ -1,3 +1,18 @@
+<a name="2.0.0"></a>
+# [2.0.0](https://github.com/ipfs/js-datastore-fs/compare/v1.1.0...v2.0.0) (2020-07-29)
+
+
+### Bug Fixes
+
+* remove node buffers ([#44](https://github.com/ipfs/js-datastore-fs/issues/44)) ([887b762](https://github.com/ipfs/js-datastore-fs/commit/887b762))
+
+
+### BREAKING CHANGES
+
+* only uses Uint8Arrays internally
+
+
+
 <a name="1.1.0"></a>
 # [1.1.0](https://github.com/ipfs/js-datastore-fs/compare/v1.0.0...v1.1.0) (2020-05-07)
 
