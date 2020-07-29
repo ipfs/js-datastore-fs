@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset='utf-8'>
-  <title>datastore-fs 1.1.0 | Documentation</title>
+  <title>datastore-fs 2.0.0 | Documentation</title>
   <meta name='description' content='Datastore implementation with file system backend'>
   <meta name='viewport' content='width=device-width,initial-scale=1'>
   <link href='assets/bass.css' rel='stylesheet'>
@@ -15,7 +15,7 @@
       <div id='split-left' class='overflow-auto fs0 height-viewport-100'>
         <div class='py1 px2'>
           <h3 class='mb0 no-anchor'>datastore-fs</h3>
-          <div class='mb1'><code>1.1.0</code></div>
+          <div class='mb1'><code>2.0.0</code></div>
           <input
             placeholder='Filter'
             id='filter-input'
@@ -26,16 +26,6 @@
             type='text' />
           <div id='toc'>
             <ul class='list-reset h5 py1-ul'>
-              
-                
-                <li><a
-                  href='#intro'
-                  class="h5 bold black caps">
-                  Intro
-                  
-                </a>
-                
-                </li>
               
                 
                 <li><a
@@ -105,34 +95,6 @@
       <div id='split-right' class='relative overflow-auto height-viewport-100'>
         
           
-            <div class='keyline-top-not py2'><section class='py2 clearfix'>
-
-  <h2 id='intro' class='mt0'>
-    Intro
-  </h2>
-
-  
-    <p>Installable via  <code>npm install --save datastore-fs</code>, it can also be used directly in the browser.</p>
-<h2>Download</h2>
-<p>The source is available for download from <a href="git+https://github.com/ipfs/js-datastore-fs.git">GitHub</a>. Alternatively, you can install using npm:</p>
-<pre class='hljs'>$ npm install --save datastore-fs</pre>
-<p>You can then <code>require()</code> datastore-fs as normal:</p>
-<pre class='hljs'><span class="hljs-keyword">const</span> datastoreFs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'datastore-fs'</span>)</pre>
-<h2>In the Browser</h2>
-<p><code>datastore-fs</code> should work in any ECMAScript 2018 environment out of the box.</p>
-<p>Usage:</p>
-<pre class='hljs'><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"index.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></pre>
-<p>The portable versions of <code>datastore-fs</code>, including <code>index.js</code> and <code>index.min.js</code>, are included in the <code>/dist</code> folder. <code>datastore-fs</code> can also be found on <a href="https://unpkg.com">unpkg.com</a> under</p>
-<ul>
-<li><a href="https://unpkg.com/datastore-fs/dist/index.min.js">https://unpkg.com/datastore-fs/dist/index.min.js</a></li>
-<li><a href="https://unpkg.com/datastore-fs/dist/index.js">https://unpkg.com/datastore-fs/dist/index.js</a></li>
-</ul>
-
-  
-</section></div>
-          
-        
-          
           <section class='p2 mb2 clearfix bg-white minishadow'>
 
   
@@ -143,7 +105,7 @@
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/ipfs/js-datastore-fs/blob/7a3522f801eaf530b08419afc245046620e9cb50/src/index.js#L46-L239'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/ipfs/js-datastore-fs/blob/8596d493dd1df1ac4d1b415e776a1b97dda85825/src/index.js#L46-L253'>
       <span>src/index.js</span>
       </a>
     
@@ -225,7 +187,7 @@ to the file system as is.</p>
   <div class='clearfix'>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/ipfs/js-datastore-fs/blob/7a3522f801eaf530b08419afc245046620e9cb50/src/index.js#L123-L128'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/ipfs/js-datastore-fs/blob/8596d493dd1df1ac4d1b415e776a1b97dda85825/src/index.js#L123-L128'>
       <span>src/index.js</span>
       </a>
     
@@ -234,7 +196,7 @@ to the file system as is.</p>
 
   <p>Write to the file system without extension.</p>
 
-    <div class='pre p1 fill-light mt0'>putRaw(key: Key, val: <a href="https://nodejs.org/api/buffer.html">Buffer</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;void></div>
+    <div class='pre p1 fill-light mt0'>putRaw(key: Key, val: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array">Uint8Array</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;void></div>
   
   
 
@@ -259,7 +221,7 @@ to the file system as is.</p>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>val</span> <code class='quiet'>(<a href="https://nodejs.org/api/buffer.html">Buffer</a>)</code>
+            <span class='code bold'>val</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array">Uint8Array</a>)</code>
 	    
           </div>
           
@@ -312,7 +274,7 @@ to the file system as is.</p>
   <div class='clearfix'>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/ipfs/js-datastore-fs/blob/7a3522f801eaf530b08419afc245046620e9cb50/src/index.js#L137-L145'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/ipfs/js-datastore-fs/blob/8596d493dd1df1ac4d1b415e776a1b97dda85825/src/index.js#L137-L146'>
       <span>src/index.js</span>
       </a>
     
@@ -321,7 +283,7 @@ to the file system as is.</p>
 
   <p>Store the given value under the key</p>
 
-    <div class='pre p1 fill-light mt0'>put(key: Key, val: <a href="https://nodejs.org/api/buffer.html">Buffer</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;void></div>
+    <div class='pre p1 fill-light mt0'>put(key: Key, val: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array">Uint8Array</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;void></div>
   
   
 
@@ -346,7 +308,7 @@ to the file system as is.</p>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>val</span> <code class='quiet'>(<a href="https://nodejs.org/api/buffer.html">Buffer</a>)</code>
+            <span class='code bold'>val</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array">Uint8Array</a>)</code>
 	    
           </div>
           
@@ -399,7 +361,7 @@ to the file system as is.</p>
   <div class='clearfix'>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/ipfs/js-datastore-fs/blob/7a3522f801eaf530b08419afc245046620e9cb50/src/index.js#L153-L164'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/ipfs/js-datastore-fs/blob/8596d493dd1df1ac4d1b415e776a1b97dda85825/src/index.js#L154-L165'>
       <span>src/index.js</span>
       </a>
     
@@ -408,7 +370,7 @@ to the file system as is.</p>
 
   <p>Read from the file system without extension.</p>
 
-    <div class='pre p1 fill-light mt0'>getRaw(key: Key): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="https://nodejs.org/api/buffer.html">Buffer</a>></div>
+    <div class='pre p1 fill-light mt0'>getRaw(key: Key): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array">Uint8Array</a>></div>
   
   
 
@@ -439,7 +401,7 @@ to the file system as is.</p>
   
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="https://nodejs.org/api/buffer.html">Buffer</a>></code>:
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array">Uint8Array</a>></code>:
         
 
       
@@ -478,7 +440,7 @@ to the file system as is.</p>
   <div class='clearfix'>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/ipfs/js-datastore-fs/blob/7a3522f801eaf530b08419afc245046620e9cb50/src/index.js#L172-L181'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/ipfs/js-datastore-fs/blob/8596d493dd1df1ac4d1b415e776a1b97dda85825/src/index.js#L173-L182'>
       <span>src/index.js</span>
       </a>
     
@@ -487,7 +449,7 @@ to the file system as is.</p>
 
   <p>Read from the file system.</p>
 
-    <div class='pre p1 fill-light mt0'>get(key: Key): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="https://nodejs.org/api/buffer.html">Buffer</a>></div>
+    <div class='pre p1 fill-light mt0'>get(key: Key): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array">Uint8Array</a>></div>
   
   
 
@@ -518,7 +480,7 @@ to the file system as is.</p>
   
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="https://nodejs.org/api/buffer.html">Buffer</a>></code>:
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array">Uint8Array</a>></code>:
         
 
       
@@ -557,7 +519,7 @@ to the file system as is.</p>
   <div class='clearfix'>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/ipfs/js-datastore-fs/blob/7a3522f801eaf530b08419afc245046620e9cb50/src/index.js#L189-L197'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/ipfs/js-datastore-fs/blob/8596d493dd1df1ac4d1b415e776a1b97dda85825/src/index.js#L190-L198'>
       <span>src/index.js</span>
       </a>
     
@@ -636,7 +598,7 @@ to the file system as is.</p>
   <div class='clearfix'>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/ipfs/js-datastore-fs/blob/7a3522f801eaf530b08419afc245046620e9cb50/src/index.js#L205-L216'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/ipfs/js-datastore-fs/blob/8596d493dd1df1ac4d1b415e776a1b97dda85825/src/index.js#L206-L217'>
       <span>src/index.js</span>
       </a>
     
