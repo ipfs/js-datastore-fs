@@ -8,9 +8,9 @@
     "test": "aegir test -t node",
     "build": "aegir build",
     "lint": "aegir lint",
-    "release": "aegir release",
-    "release-minor": "aegir release --type minor",
-    "release-major": "aegir release --type major",
+    "release": "aegir release -t node --build false",
+    "release-minor": "aegir release --type minor -t node --build false",
+    "release-major": "aegir release --type major -t node --build false",
     "coverage": "nyc -s npm run test:node && nyc report --reporter=html",
     "dep-check": "aegir dep-check"
   },
