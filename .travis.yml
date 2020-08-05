@@ -6,14 +6,15 @@ stages:
   - cov
 
 node_js:
-  - '10'
+  - 'lts/*'
+  - 'node'
 
 os:
   - linux
   - osx
   - windows
 
-script: npx nyc -s npm run test:node -- --bail
+script: npx nyc -s npm run test -- --bail
 after_success: npx nyc report --reporter=text-lcov > coverage.lcov && npx codecov
 
 jobs:
@@ -23,18 +24,6 @@ jobs:
         - npx aegir commitlint --travis
         - npx aegir dep-check
         - npm run lint
-
-    - stage: test
-      name: chrome
-      addons:
-        chrome: stable
-      script: npx aegir test -t browser -t webworker
-
-    - stage: test
-      name: firefox
-      addons:
-        firefox: latest
-      script: npx aegir test -t browser -t webworker -- --browsers FirefoxHeadless
 
 notifications:
   email: false
