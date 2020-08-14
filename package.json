@@ -39,7 +39,7 @@
     "mkdirp": "^1.0.4"
   },
   "devDependencies": {
-    "aegir": "^25.0.0",
+    "aegir": "^26.0.0",
     "async-iterator-all": "^1.0.0",
     "chai": "^4.2.0",
     "cids": "^0.8.3",
