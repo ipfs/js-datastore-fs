@@ -1,9 +1,7 @@
 /* eslint-env mocha */
 'use strict'
 
-const chai = require('chai')
-chai.use(require('dirty-chai'))
-const expect = chai.expect
+const { expect } = require('aegir/utils/chai')
 const path = require('path')
 const promisify = require('util').promisify
 const noop = () => {}
@@ -190,6 +188,21 @@ describe('FsDatastore', () => {
     )
 
     const res = await fstore.get(key)
+
+    expect(res).to.deep.equal(value)
+  })
+
+  it('can survive putRaw and getRaw with an empty extension', async () => {
+    const dir = utils.tmpdir()
+    const fstore = new FsStore(dir, {
+      extension: ''
+    })
+    const key = new Key('CIQGFTQ7FSI2COUXWWLOQ45VUM2GUZCGAXLWCTOKKPGTUWPXHBNIVOY')
+    const value = utf8Encoder.encode('Hello world')
+
+    await fstore.putRaw(key, value)
+
+    const res = await fstore.getRaw(key)
 
     expect(res).to.deep.equal(value)
   })
