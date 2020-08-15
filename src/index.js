@@ -122,7 +122,12 @@ class FsDatastore extends Adapter {
    */
   async putRaw (key, val) {
     const parts = this._encode(key)
-    const file = parts.file.slice(0, -this.opts.extension.length)
+    let file = parts.file
+
+    if (this.opts.extension.length) {
+      file = parts.file.slice(0, -this.opts.extension.length)
+    }
+
     await mkdirp(parts.dir, { fs: fs })
     await writeFile(file, val)
   }
@@ -154,7 +159,11 @@ class FsDatastore extends Adapter {
   async getRaw (key) {
     const parts = this._encode(key)
     let file = parts.file
-    file = file.slice(0, -this.opts.extension.length)
+
+    if (this.opts.extension.length) {
+      file = file.slice(0, -this.opts.extension.length)
+    }
+
     let data
     try {
       data = await fsReadFile(file)
