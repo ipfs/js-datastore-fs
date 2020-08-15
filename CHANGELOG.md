@@ -1,3 +1,13 @@
+<a name="2.0.1"></a>
+## [2.0.1](https://github.com/ipfs/js-datastore-fs/compare/v2.0.0...v2.0.1) (2020-08-15)
+
+
+### Bug Fixes
+
+* only remove extension from path when it is non-empty ([#47](https://github.com/ipfs/js-datastore-fs/issues/47)) ([9e3e042](https://github.com/ipfs/js-datastore-fs/commit/9e3e042))
+
+
+
 <a name="2.0.0"></a>
 # [2.0.0](https://github.com/ipfs/js-datastore-fs/compare/v1.1.0...v2.0.0) (2020-07-29)
 
