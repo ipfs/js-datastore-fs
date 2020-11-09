@@ -35,15 +35,15 @@
     "datastore-core": "^2.0.0",
     "fast-write-atomic": "^0.2.0",
     "interface-datastore": "^2.0.0",
-    "it-glob": "0.0.8",
+    "it-glob": "0.0.10",
     "mkdirp": "^1.0.4"
   },
   "devDependencies": {
-    "aegir": "^26.0.0",
+    "aegir": "^28.1.0",
     "async-iterator-all": "^1.0.0",
     "cids": "^1.0.0",
     "detect-node": "^2.0.4",
-    "ipfs-utils": "^2.3.1",
+    "ipfs-utils": "^4.0.1",
     "memdown": "^5.1.0",
     "rimraf": "^3.0.2"
   },
