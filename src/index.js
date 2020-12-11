@@ -25,8 +25,9 @@ const fsUnlink = promisify(fs.unlink || noop)
 
 /**
  * Write a file atomically
- * @param {string} path 
- * @param {Uint8Array} contents 
+ *
+ * @param {string} path
+ * @param {Uint8Array} contents
  */
 async function writeFile (path, contents) {
   try {
@@ -53,7 +54,7 @@ async function writeFile (path, contents) {
  *
  * Keys need to be sanitized before use, as they are written
  * to the file system as is.
- * 
+ *
  * @implements {Datastore}
  */
 class FsDatastore extends Adapter {
@@ -68,7 +69,7 @@ class FsDatastore extends Adapter {
     }, opts)
   }
 
-  async open () {
+  open () {
     try {
       if (!fs.existsSync(this.path)) {
         throw Errors.notFoundError(new Error(`Datastore directory: ${this.path} does not exist`))
@@ -77,10 +78,11 @@ class FsDatastore extends Adapter {
       if (this.opts.errorIfExists) {
         throw Errors.dbOpenFailedError(new Error(`Datastore directory: ${this.path} already exists`))
       }
+      return Promise.resolve()
     } catch (err) {
       if (err.code === 'ERR_NOT_FOUND' && this.opts.createIfMissing) {
         mkdirp.sync(this.path, { fs: fs })
-        return
+        return Promise.resolve()
       }
 
       throw err
