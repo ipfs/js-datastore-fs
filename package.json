@@ -55,6 +55,9 @@
     "memdown": "^5.1.0",
     "rimraf": "^3.0.2"
   },
+  "eslintConfig": {
+    "extends": "ipfs"
+  },
   "contributors": [
     "achingbrain <alex@achingbrain.net>",
     "David Dias <daviddias.p@gmail.com>",
