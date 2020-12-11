@@ -69,6 +69,7 @@ describe('FsDatastore', () => {
     const fs = new FsStore(dir)
 
     expect(
+      // @ts-ignore
       fs._encode(new Key('hello/world'))
     ).to.eql({
       dir: path.join(dir, 'hello'),
@@ -76,6 +77,7 @@ describe('FsDatastore', () => {
     })
 
     expect(
+      // @ts-ignore
       fs._decode(fs._encode(new Key('hello/world/test:other')).file)
     ).to.eql(
       new Key('hello/world/test:other')
