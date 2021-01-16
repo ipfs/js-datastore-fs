@@ -5,9 +5,6 @@
   "leadMaintainer": "Alex Potsides <alex.potsides@protocol.ai>",
   "main": "src/index.js",
   "types": "dist/src/index.d.ts",
-  "typesVersions": {
-    "*": { "src/*": ["dist/src/*", "dist/src/*/index"] }
-  },
   "files": [
     "src",
     "dist"
@@ -42,16 +39,16 @@
   "dependencies": {
     "datastore-core": "ipfs/js-datastore-core#feat/ts-types",
     "fast-write-atomic": "^0.2.0",
-    "interface-datastore": "ipfs/interface-datastore#feat/ts-types",
+    "interface-datastore": "ipfs/interface-datastore#chore/export-types-from-entrypoint",
     "it-glob": "0.0.10",
     "mkdirp": "^1.0.4"
   },
   "devDependencies": {
-    "aegir": "ipfs/aegir#feat/ts-4.1.x",
+    "aegir": "^30.3.0",
     "async-iterator-all": "^1.0.0",
-    "cids": "^1.0.0",
+    "cids": "^1.1.5",
     "detect-node": "^2.0.4",
-    "ipfs-utils": "^4.0.1",
+    "ipfs-utils": "^6.0.0",
     "memdown": "^5.1.0",
     "rimraf": "^3.0.2"
   },

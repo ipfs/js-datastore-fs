@@ -2,8 +2,10 @@
 
 const fs = require('fs')
 const glob = require('it-glob')
+// @ts-ignore
 const mkdirp = require('mkdirp')
 const promisify = require('util').promisify
+// @ts-ignore
 const writeAtomic = promisify(require('fast-write-atomic'))
 const path = require('path')
 const {
@@ -18,9 +20,9 @@ const fsReadFile = promisify(fs.readFile || noop)
 const fsUnlink = promisify(fs.unlink || noop)
 
 /**
- * @typedef {import('interface-datastore/src/types').Datastore} Datastore
- * @typedef {import('interface-datastore/src/types').Pair} Pair
- * @typedef {import('interface-datastore/src/key')} Key
+ * @typedef {import('interface-datastore').Datastore} Datastore
+ * @typedef {import('interface-datastore').Pair} Pair
+ * @typedef {import('interface-datastore').Query} Query
  */
 
 /**
@@ -58,6 +60,10 @@ async function writeFile (path, contents) {
  * @implements {Datastore}
  */
 class FsDatastore extends Adapter {
+  /**
+   * @param {string} location
+   * @param {{ createIfMissing?: boolean; errorIfExists?: boolean; extension?: string; } | undefined} [opts]
+   */
   constructor (location, opts) {
     super()
 
@@ -87,6 +93,10 @@ class FsDatastore extends Adapter {
 
       throw err
     }
+  }
+
+  close () {
+    return Promise.resolve()
   }
 
   /**
@@ -240,6 +250,11 @@ class FsDatastore extends Adapter {
     }
   }
 
+  /**
+   *
+   * @param {Query} q
+   * @returns {AsyncIterable<Pair>}
+   */
   async * _all (q) {
     let prefix = q.prefix || '**'
 

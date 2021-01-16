@@ -4,18 +4,22 @@
 const { expect } = require('aegir/utils/chai')
 const path = require('path')
 const promisify = require('util').promisify
-const noop = () => {}
+// @ts-ignore
 const mkdirp = require('mkdirp')
+// @ts-ignore
 const rimraf = promisify(require('rimraf'))
 const fs = require('fs')
+const noop = () => {}
 const fsReadFile = promisify(require('fs').readFile || noop)
 const Key = require('interface-datastore').Key
 const utils = require('interface-datastore').utils
 const ShardingStore = require('datastore-core').ShardingDatastore
 const sh = require('datastore-core').shard
-const isNode = require('detect-node')
 const TextEncoder = require('ipfs-utils/src/text-encoder')
-const utf8Encoder = new TextEncoder('utf8')
+const { isNode } = require('ipfs-utils/src/env')
+const utf8Encoder = new TextEncoder()
+// @ts-ignore
+const tests = require('interface-datastore/src/tests')
 
 const FsStore = require('../src')
 
@@ -155,7 +159,7 @@ describe('FsDatastore', () => {
   describe('interface-datastore', () => {
     const dir = utils.tmpdir()
 
-    require('interface-datastore/src/tests')({
+    tests({
       setup: () => {
         return new FsStore(dir)
       },
@@ -168,7 +172,7 @@ describe('FsDatastore', () => {
   describe('interface-datastore (sharding(fs))', () => {
     const dir = utils.tmpdir()
 
-    require('interface-datastore/src/tests')({
+    tests({
       setup: () => {
         const shard = new sh.NextToLast(2)
         return ShardingStore.createOrOpen(new FsStore(dir), shard)
