@@ -39,7 +39,7 @@
   "dependencies": {
     "datastore-core": "ipfs/js-datastore-core#feat/ts-types",
     "fast-write-atomic": "^0.2.0",
-    "interface-datastore": "ipfs/interface-datastore#chore/export-types-from-entrypoint",
+    "interface-datastore": "^3.0.1",
     "it-glob": "0.0.10",
     "mkdirp": "^1.0.4"
   },
