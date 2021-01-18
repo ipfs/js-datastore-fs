@@ -34,7 +34,7 @@
   "dependencies": {
     "datastore-core": "^2.0.0",
     "fast-write-atomic": "^0.2.0",
-    "interface-datastore": "^2.0.0",
+    "interface-datastore": "^3.0.1",
     "it-glob": "0.0.10",
     "mkdirp": "^1.0.4"
   },
