@@ -10,6 +10,7 @@
     "dist"
   ],
   "scripts": {
+    "prepare": "aegir build --no-bundle",
     "test": "aegir test -t node",
     "build": "aegir build",
     "lint": "aegir lint",
