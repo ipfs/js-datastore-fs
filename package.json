@@ -38,7 +38,7 @@
   },
   "homepage": "https://github.com/ipfs/js-datastore-fs#readme",
   "dependencies": {
-    "datastore-core": "ipfs/js-datastore-core#feat/ts-types",
+    "datastore-core": "ipfs/js-datastore-core#bee45ae",
     "fast-write-atomic": "^0.2.0",
     "interface-datastore": "^3.0.1",
     "it-glob": "0.0.10",
