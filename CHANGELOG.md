@@ -1,3 +1,12 @@
+# [3.0.0](https://github.com/ipfs/js-datastore-fs/compare/v2.0.2...v3.0.0) (2021-01-22)
+
+
+### Features
+
+* types ([#62](https://github.com/ipfs/js-datastore-fs/issues/62)) ([de519dd](https://github.com/ipfs/js-datastore-fs/commit/de519dd6b8c0b892e827fb2d26cde3239358eaf6))
+
+
+
 ## [2.0.2](https://github.com/ipfs/js-datastore-fs/compare/v2.0.1...v2.0.2) (2020-11-09)
 
 
