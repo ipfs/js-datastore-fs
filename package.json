@@ -1,6 +1,6 @@
 {
   "name": "datastore-fs",
-  "version": "2.0.2",
+  "version": "3.0.0",
   "description": "Datastore implementation with file system backend",
   "leadMaintainer": "Alex Potsides <alex.potsides@protocol.ai>",
   "main": "src/index.js",
@@ -61,9 +61,9 @@
     "David Dias <daviddias.p@gmail.com>",
     "Friedel Ziegelmayer <dignifiedquire@gmail.com>",
     "Jacob Heun <jacobheun@gmail.com>",
+    "Hugo Dias <hugomrdias@gmail.com>",
     "Pedro Teixeira <i@pgte.me>",
     "Hector Sanjuan <code@hector.link>",
-    "Hugo Dias <hugomrdias@gmail.com>",
     "ᴠɪᴄᴛᴏʀ ʙᴊᴇʟᴋʜᴏʟᴍ <victorbjelkholm@gmail.com>",
     "Richard Schneider <makaretu@gmail.com>",
     "Vasco Santos <vasco.santos@moxy.studio>",
