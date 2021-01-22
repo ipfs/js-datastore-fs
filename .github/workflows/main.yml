@@ -33,20 +33,6 @@ jobs:
       - run: npm install
       - run: npx nyc --reporter=lcov aegir test -t node -- --bail
       - uses: codecov/codecov-action@v1
-  test-chrome:
-    needs: check
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - run: npm install
-      - run: npx aegir test -t browser -t webworker --bail
-  test-firefox:
-    needs: check
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - run: npm install
-      - run: npx aegir test -t browser -t webworker --bail -- --browsers FirefoxHeadless
   test-electron-main:
     needs: check
     runs-on: ubuntu-latest
