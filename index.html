@@ -1,683 +1,241 @@
 <!doctype html>
-<html lang="en">
+<html class="default no-js">
 <head>
-  <meta charset='utf-8'>
-  <title>datastore-fs 2.0.2 | Documentation</title>
-  <meta name='description' content='Datastore implementation with file system backend'>
-  <meta name='viewport' content='width=device-width,initial-scale=1'>
-  <link href='assets/bass.css' rel='stylesheet'>
-  <link href='assets/style.css' rel='stylesheet'>
-  <link href='assets/github.css' rel='stylesheet'>
-  <link href='assets/split.css' rel='stylesheet'>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>datastore-fs - v3.0.0</title>
+	<meta name="description" content="Documentation for datastore-fs - v3.0.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+	<link href="https://unpkg.com/nord-highlightjs@0.1.0/dist/nord.css" rel="stylesheet" type="text/css" />
+	<style>
+        .toolbar-icon {
+            display: inline-block;
+            vertical-align: middle;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+        .toolbar-icon-search {
+            box-sizing: border-box;
+            position: absolute;
+            overflow: hidden;
+            right: -40px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            @media (min-width: 901px){
+                display: none
+            }
+        }
+            @media (min-width: 901px){
+                .toolbar-icon-menu {
+                    display: none
+                }
+                .toolbar-icon-options {
+                    display: none
+                }
+            }
+
+        .gg-menu {
+            transform: scale(var(--ggs,1))
+        }
+        .gg-menu,
+        .gg-menu::after,
+        .gg-menu::before {
+            box-sizing: border-box;
+            position: relative;
+            display: block;
+            width: 20px;
+            height: 2px;
+            border-radius: 3px;
+            background: currentColor
+        }
+        .gg-menu::after,
+        .gg-menu::before {
+            content: "";
+            position: absolute;
+            top: -6px
+        }
+        .gg-menu::after {
+            top: 6px
+        }
+        .gg-options {
+            box-sizing: border-box;
+            position: relative;
+            display: block;
+            transform: scale(var(--ggs,1));
+            width: 10px;
+            height: 2px;
+            box-shadow:
+                -3px 4px 0 0,
+                3px -4px 0 0
+        }
+        .gg-options::after,
+        .gg-options::before {
+            content: "";
+            display: block;
+            box-sizing: border-box;
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border: 2px solid;
+            border-radius: 100%
+        }
+        .gg-options::before {
+            top: -7px;
+            left: -4px
+        }
+        .gg-options::after {
+            bottom: -7px;
+            right: -4px
+        }
+        .gg-search {
+            box-sizing: border-box;
+            position: relative;
+            display: block;
+            transform: scale(var(--ggs,1));
+            width: 16px;
+            height: 16px;
+            border: 2px solid;
+            border-radius: 100%;
+            margin-left: -4px;
+            margin-top: -4px
+        }
+        .gg-search::after {
+            content: "";
+            display: block;
+            box-sizing: border-box;
+            position: absolute;
+            border-radius: 3px;
+            width: 2px;
+            height: 8px;
+            background: currentColor;
+            transform: rotate(-45deg);
+            top: 10px;
+            left: 12px
+        }
+    </style>
 </head>
-<body class='documentation m0'>
-    <div class='flex'>
-      <div id='split-left' class='overflow-auto fs0 height-viewport-100'>
-        <div class='py1 px2'>
-          <h3 class='mb0 no-anchor'>datastore-fs</h3>
-          <div class='mb1'><code>2.0.2</code></div>
-          <input
-            placeholder='Filter'
-            id='filter-input'
-            class='col12 block input'
-            spellcheck='false'
-            autocapitalize='off'
-            autocorrect='off'
-            type='text' />
-          <div id='toc'>
-            <ul class='list-reset h5 py1-ul'>
-              
-                
-                <li><a
-                  href='#fsdatastore'
-                  class=" toggle-sibling">
-                  FsDatastore
-                  <span class='icon'>▸</span>
-                </a>
-                
-                <div class='toggle-target display-none'>
-                  
-                  
-                    <ul class='list-reset py1-ul pl1'>
-                      <li class='h5'><span>Instance members</span></li>
-                      
-                      <li><a
-                        href='#fsdatastoreputraw'
-                        class='regular pre-open'>
-                        #putRaw
-                      </a></li>
-                      
-                      <li><a
-                        href='#fsdatastoreput'
-                        class='regular pre-open'>
-                        #put
-                      </a></li>
-                      
-                      <li><a
-                        href='#fsdatastoregetraw'
-                        class='regular pre-open'>
-                        #getRaw
-                      </a></li>
-                      
-                      <li><a
-                        href='#fsdatastoreget'
-                        class='regular pre-open'>
-                        #get
-                      </a></li>
-                      
-                      <li><a
-                        href='#fsdatastorehas'
-                        class='regular pre-open'>
-                        #has
-                      </a></li>
-                      
-                      <li><a
-                        href='#fsdatastoredelete'
-                        class='regular pre-open'>
-                        #delete
-                      </a></li>
-                      
-                    </ul>
-                  
-                  
-                  
-                </div>
-                
-                </li>
-              
-            </ul>
-          </div>
-          <div class='mt1 h6 quiet'>
-            <a href='https://documentation.js.org/reading-documentation.html'>Need help reading this?</a>
-          </div>
-        </div>
-      </div>
-      <div id='split-right' class='relative overflow-auto height-viewport-100'>
-        
-          
-          <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='fsdatastore'>
-      FsDatastore
-    </h3>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/ipfs/js-datastore-fs/blob/b7a109960c863b0aae1ba9ff0b6be959c4838c06/src/index.js#L46-L262'>
-      <span>src/index.js</span>
-      </a>
-    
-  </div>
-  
-
-  <p>A datastore backed by the file system.</p>
-<p>Keys need to be sanitized before use, as they are written
-to the file system as is.</p>
-
-    <div class='pre p1 fill-light mt0'>new FsDatastore(location: any, opts: any)</div>
-  
-  
-    <p>
-      Extends
-      
-        Adapter
-      
-    </p>
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>location</span> <code class='quiet'>(any)</code>
-	    
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>opts</span> <code class='quiet'>(any)</code>
-	    
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Instance Members</div>
-    <div class="clearfix">
-  
-    <div class='border-bottom' id='fsdatastoreputraw'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>putRaw(key, val)</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/ipfs/js-datastore-fs/blob/b7a109960c863b0aae1ba9ff0b6be959c4838c06/src/index.js#L123-L133'>
-      <span>src/index.js</span>
-      </a>
-    
-  </div>
-  
-
-  <p>Write to the file system without extension.</p>
-
-    <div class='pre p1 fill-light mt0'>putRaw(key: Key, val: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array">Uint8Array</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;void></div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>key</span> <code class='quiet'>(Key)</code>
-	    
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>val</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array">Uint8Array</a>)</code>
-	    
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;void></code>:
-        
-
-      
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='fsdatastoreput'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>put(key, val)</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/ipfs/js-datastore-fs/blob/b7a109960c863b0aae1ba9ff0b6be959c4838c06/src/index.js#L142-L151'>
-      <span>src/index.js</span>
-      </a>
-    
-  </div>
-  
-
-  <p>Store the given value under the key</p>
-
-    <div class='pre p1 fill-light mt0'>put(key: Key, val: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array">Uint8Array</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;void></div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>key</span> <code class='quiet'>(Key)</code>
-	    
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>val</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array">Uint8Array</a>)</code>
-	    
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;void></code>:
-        
-
-      
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='fsdatastoregetraw'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>getRaw(key)</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/ipfs/js-datastore-fs/blob/b7a109960c863b0aae1ba9ff0b6be959c4838c06/src/index.js#L159-L174'>
-      <span>src/index.js</span>
-      </a>
-    
-  </div>
-  
-
-  <p>Read from the file system without extension.</p>
-
-    <div class='pre p1 fill-light mt0'>getRaw(key: Key): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array">Uint8Array</a>></div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>key</span> <code class='quiet'>(Key)</code>
-	    
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array">Uint8Array</a>></code>:
-        
-
-      
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='fsdatastoreget'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>get(key)</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/ipfs/js-datastore-fs/blob/b7a109960c863b0aae1ba9ff0b6be959c4838c06/src/index.js#L182-L191'>
-      <span>src/index.js</span>
-      </a>
-    
-  </div>
-  
-
-  <p>Read from the file system.</p>
-
-    <div class='pre p1 fill-light mt0'>get(key: Key): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array">Uint8Array</a>></div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>key</span> <code class='quiet'>(Key)</code>
-	    
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array">Uint8Array</a>></code>:
-        
-
-      
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='fsdatastorehas'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>has(key)</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/ipfs/js-datastore-fs/blob/b7a109960c863b0aae1ba9ff0b6be959c4838c06/src/index.js#L199-L207'>
-      <span>src/index.js</span>
-      </a>
-    
-  </div>
-  
-
-  <p>Check for the existence of the given key.</p>
-
-    <div class='pre p1 fill-light mt0'>has(key: Key): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;bool></div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>key</span> <code class='quiet'>(Key)</code>
-	    
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;bool></code>:
-        
-
-      
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='fsdatastoredelete'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>delete(key)</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/ipfs/js-datastore-fs/blob/b7a109960c863b0aae1ba9ff0b6be959c4838c06/src/index.js#L215-L226'>
-      <span>src/index.js</span>
-      </a>
-    
-  </div>
-  
-
-  <p>Delete the record under the given key.</p>
-
-    <div class='pre p1 fill-light mt0'>delete(key: Key): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;void></div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>key</span> <code class='quiet'>(Key)</code>
-	    
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;void></code>:
-        
-
-      
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.json" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="toolbar-icon toolbar-icon-search"><i class="gg-search"></i></label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">datastore-fs - v3.0.0</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<a href="#" class="toolbar-icon toolbar-icon-menu" data-toggle="menu"><i class="gg-menu"></i></a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+			</ul>
+			<h1>datastore-fs - v3.0.0</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<a href="#js-datastore-fs" id="js-datastore-fs" style="color: inherit; text-decoration: none;">
+					<h1>js-datastore-fs</h1>
+				</a>
+				<p><a href="http://ipn.io"><img src="https://img.shields.io/badge/made%20by-Protocol%20Labs-blue.svg?style=flat-square" alt=""></a>
+					<a href="http://ipfs.io/"><img src="https://img.shields.io/badge/project-IPFS-blue.svg?style=flat-square" alt=""></a>
+					<a href="http://webchat.freenode.net/?channels=%23ipfs"><img src="https://img.shields.io/badge/freenode-%23ipfs-blue.svg?style=flat-square" alt=""></a>
+					<a href="https://github.com/RichardLitt/standard-readme"><img src="https://img.shields.io/badge/standard--readme-OK-green.svg?style=flat-square" alt="standard-readme compliant"></a>
+					<a href="https://travis-ci.com/ipfs/js-datastore-fs"><img src="https://flat.badgen.net/travis/ipfs/js-datastore-fs" alt="Build Status"></a>
+					<a href="https://codecov.io/gh/ipfs/js-datastore-fs"><img src="https://codecov.io/gh/ipfs/js-datastore-fs/branch/master/graph/badge.svg" alt="Codecov"></a>
+					<a href="https://david-dm.org/ipfs/js-datastore-fs"><img src="https://david-dm.org/ipfs/js-datastore-fs.svg?style=flat-square" alt="Dependency Status"></a>
+					<a href="https://github.com/feross/standard"><img src="https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat-square" alt="js-standard-style"></a>
+					<img src="https://img.shields.io/badge/npm-%3E%3D3.0.0-orange.svg?style=flat-square" alt="">
+				<img src="https://img.shields.io/badge/Node.js-%3E%3D8.0.0-orange.svg?style=flat-square" alt=""></p>
+				<blockquote>
+					<p>Datastore implementation with file system backend.</p>
+				</blockquote>
+				<a href="#lead-maintainer" id="lead-maintainer" style="color: inherit; text-decoration: none;">
+					<h2>Lead Maintainer</h2>
+				</a>
+				<p><a href="https://github.com/achingbrain">Alex Potsides</a></p>
+				<a href="#table-of-contents" id="table-of-contents" style="color: inherit; text-decoration: none;">
+					<h2>Table of Contents</h2>
+				</a>
+				<ul>
+					<li><a href="#js-datastore-fs">js-datastore-fs</a><ul>
+							<li><a href="#lead-maintainer">Lead Maintainer</a></li>
+							<li><a href="#table-of-contents">Table of Contents</a></li>
+							<li><a href="#install">Install</a></li>
+							<li><a href="#usage">Usage</a></li>
+							<li><a href="#contribute">Contribute</a></li>
+							<li><a href="#license">License</a></li>
+						</ul>
+					</li>
+				</ul>
+				<a href="#install" id="install" style="color: inherit; text-decoration: none;">
+					<h2>Install</h2>
+				</a>
+				<pre><code>$ npm <span class="hljs-keyword">install</span> datastore-fs</code></pre>
+				<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
+					<h2>Usage</h2>
+				</a>
+				<pre><code class="language-js"><span class="hljs-keyword">const</span> FsStore = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;datastore-fs&#x27;</span>)
+<span class="hljs-keyword">const</span> store = <span class="hljs-keyword">new</span> FsStore(<span class="hljs-string">&#x27;path/to/store&#x27;</span>)</code></pre>
+				<a href="#contribute" id="contribute" style="color: inherit; text-decoration: none;">
+					<h2>Contribute</h2>
+				</a>
+				<p>Feel free to join in. All welcome. Open an <a href="https://github.com/ipfs/js-datastore-fs/issues">issue</a>!</p>
+				<p>This repository falls under the IPFS <a href="https://github.com/ipfs/community/blob/master/code-of-conduct.md">Code of Conduct</a>.</p>
+				<p><a href="https://github.com/ipfs/community/blob/master/CONTRIBUTING.md"><img src="https://cdn.rawgit.com/jbenet/contribute-ipfs-gif/master/img/contribute.gif" alt=""></a></p>
+				<a href="#license" id="license" style="color: inherit; text-decoration: none;">
+					<h2>License</h2>
+				</a>
+				<p><a href="LICENSE">MIT</a></p>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class=" tsd-kind-module">
+						<a href="modules/__datastore_fs_.html"> datastore-fs</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
 </div>
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-      </div>
-    </div>
-  <script src='assets/anchor.js'></script>
-  <script src='assets/split.js'></script>
-  <script src='assets/site.js'></script>
+<footer>
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
 </body>
 </html>
