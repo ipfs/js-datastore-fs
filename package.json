@@ -4,7 +4,13 @@
   "description": "Datastore implementation with file system backend",
   "leadMaintainer": "Alex Potsides <alex.potsides@protocol.ai>",
   "main": "src/index.js",
+  "types": "dist/src/index.d.ts",
+  "files": [
+    "src",
+    "dist"
+  ],
   "scripts": {
+    "prepare": "aegir build --no-bundle",
     "test": "aegir test -t node",
     "build": "aegir build",
     "lint": "aegir lint",
@@ -32,20 +38,23 @@
   },
   "homepage": "https://github.com/ipfs/js-datastore-fs#readme",
   "dependencies": {
-    "datastore-core": "^2.0.0",
+    "datastore-core": "^3.0.0",
     "fast-write-atomic": "^0.2.0",
-    "interface-datastore": "^2.0.0",
+    "interface-datastore": "^3.0.3",
     "it-glob": "0.0.10",
     "mkdirp": "^1.0.4"
   },
   "devDependencies": {
-    "aegir": "^28.1.0",
+    "aegir": "^30.3.0",
     "async-iterator-all": "^1.0.0",
-    "cids": "^1.0.0",
+    "cids": "^1.1.5",
     "detect-node": "^2.0.4",
-    "ipfs-utils": "^4.0.1",
+    "ipfs-utils": "^6.0.0",
     "memdown": "^5.1.0",
     "rimraf": "^3.0.2"
+  },
+  "eslintConfig": {
+    "extends": "ipfs"
   },
   "contributors": [
     "achingbrain <alex@achingbrain.net>",

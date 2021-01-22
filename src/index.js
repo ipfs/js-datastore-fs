@@ -2,8 +2,10 @@
 
 const fs = require('fs')
 const glob = require('it-glob')
+// @ts-ignore
 const mkdirp = require('mkdirp')
 const promisify = require('util').promisify
+// @ts-ignore
 const writeAtomic = promisify(require('fast-write-atomic'))
 const path = require('path')
 const {
@@ -17,6 +19,18 @@ const fsAccess = promisify(fs.access || noop)
 const fsReadFile = promisify(fs.readFile || noop)
 const fsUnlink = promisify(fs.unlink || noop)
 
+/**
+ * @typedef {import('interface-datastore').Datastore} Datastore
+ * @typedef {import('interface-datastore').Pair} Pair
+ * @typedef {import('interface-datastore').Query} Query
+ */
+
+/**
+ * Write a file atomically
+ *
+ * @param {string} path
+ * @param {Uint8Array} contents
+ */
 async function writeFile (path, contents) {
   try {
     await writeAtomic(path, contents)
@@ -42,8 +56,14 @@ async function writeFile (path, contents) {
  *
  * Keys need to be sanitized before use, as they are written
  * to the file system as is.
+ *
+ * @implements {Datastore}
  */
 class FsDatastore extends Adapter {
+  /**
+   * @param {string} location
+   * @param {{ createIfMissing?: boolean; errorIfExists?: boolean; extension?: string; } | undefined} [opts]
+   */
   constructor (location, opts) {
     super()
 
@@ -64,14 +84,19 @@ class FsDatastore extends Adapter {
       if (this.opts.errorIfExists) {
         throw Errors.dbOpenFailedError(new Error(`Datastore directory: ${this.path} already exists`))
       }
+      return Promise.resolve()
     } catch (err) {
       if (err.code === 'ERR_NOT_FOUND' && this.opts.createIfMissing) {
         mkdirp.sync(this.path, { fs: fs })
-        return
+        return Promise.resolve()
       }
 
       throw err
     }
+  }
+
+  close () {
+    return Promise.resolve()
   }
 
   /**
@@ -79,7 +104,7 @@ class FsDatastore extends Adapter {
    *
    * @private
    * @param {Key} key
-   * @returns {{string, string}}
+   * @returns {{dir:string, file:string}}
    */
   _encode (key) {
     const parent = key.parent().toString()
@@ -194,7 +219,7 @@ class FsDatastore extends Adapter {
    * Check for the existence of the given key.
    *
    * @param {Key} key
-   * @returns {Promise<bool>}
+   * @returns {Promise<boolean>}
    */
   async has (key) {
     const parts = this._encode(key)
@@ -225,7 +250,12 @@ class FsDatastore extends Adapter {
     }
   }
 
-  async * _all (q) { // eslint-disable-line require-await
+  /**
+   *
+   * @param {Query} q
+   * @returns {AsyncIterable<Pair>}
+   */
+  async * _all (q) {
     let prefix = q.prefix || '**'
 
     // strip leading slashes
@@ -256,7 +286,7 @@ class FsDatastore extends Adapter {
         }
       }
     } else {
-      yield * map(files, f => ({ key: this._decode(f) }))
+      yield * map(files, f => /** @type {Pair} */({ key: this._decode(f) }))
     }
   }
 }
