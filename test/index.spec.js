@@ -15,7 +15,6 @@ const Key = require('interface-datastore').Key
 const utils = require('interface-datastore').utils
 const ShardingStore = require('datastore-core').ShardingDatastore
 const sh = require('datastore-core').shard
-const TextEncoder = require('ipfs-utils/src/text-encoder')
 const { isNode } = require('ipfs-utils/src/env')
 const utf8Encoder = new TextEncoder()
 // @ts-ignore
