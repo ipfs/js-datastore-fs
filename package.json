@@ -41,16 +41,16 @@
     "datastore-core": "^3.0.0",
     "fast-write-atomic": "^0.2.0",
     "interface-datastore": "^3.0.3",
-    "it-glob": "0.0.10",
+    "it-glob": "^0.0.11",
     "mkdirp": "^1.0.4"
   },
   "devDependencies": {
-    "aegir": "^30.3.0",
+    "aegir": "^33.1.0",
     "async-iterator-all": "^1.0.0",
     "cids": "^1.1.5",
     "detect-node": "^2.0.4",
     "ipfs-utils": "^6.0.0",
-    "memdown": "^5.1.0",
+    "memdown": "^6.0.0",
     "rimraf": "^3.0.2"
   },
   "eslintConfig": {
