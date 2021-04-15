@@ -38,10 +38,11 @@
   },
   "homepage": "https://github.com/ipfs/js-datastore-fs#readme",
   "dependencies": {
-    "datastore-core": "^3.0.0",
+    "datastore-core": "^4.0.0",
     "fast-write-atomic": "^0.2.0",
-    "interface-datastore": "^3.0.3",
+    "interface-datastore": "^4.0.0",
     "it-glob": "^0.0.11",
+    "it-map": "^1.0.5",
     "mkdirp": "^1.0.4"
   },
   "devDependencies": {
