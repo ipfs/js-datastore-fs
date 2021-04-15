@@ -3,8 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>FsDatastore | datastore-fs - v3.0.2</title>
-	<meta name="description" content="Documentation for datastore-fs - v3.0.2">
+	<title>FsDatastore | datastore-fs - v4.0.0</title>
+	<meta name="description" content="Documentation for datastore-fs - v4.0.0">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
 	<script async src="../assets/js/search.js" id="search-script"></script>
@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">datastore-fs - v3.0.2</a>
+					<a href="../index.html" class="title">datastore-fs - v4.0.0</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -52,7 +52,7 @@
 		<div class="container">
 			<ul class="tsd-breadcrumb">
 				<li>
-					<a href="../modules.html">datastore-fs - v3.0.2</a>
+					<a href="../modules.html">datastore-fs - v4.0.0</a>
 				</li>
 				<li>
 					<a href="fsdatastore.html">FsDatastore</a>
@@ -113,6 +113,7 @@
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="fsdatastore.html#_all" class="tsd-kind-icon">_all</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="fsdatastore.html#_allkeys" class="tsd-kind-icon">_all<wbr>Keys</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="fsdatastore.html#_decode" class="tsd-kind-icon">_decode</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="fsdatastore.html#_encode" class="tsd-kind-icon">_encode</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="fsdatastore.html#batch" class="tsd-kind-icon">batch</a></li>
@@ -128,6 +129,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="fsdatastore.html#putmany" class="tsd-kind-icon">put<wbr>Many</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="fsdatastore.html#putraw" class="tsd-kind-icon">put<wbr>Raw</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="fsdatastore.html#query" class="tsd-kind-icon">query</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="fsdatastore.html#querykeys" class="tsd-kind-icon">query<wbr>Keys</a></li>
 							</ul>
 						</section>
 					</div>
@@ -186,23 +188,51 @@
 					<a name="_all" class="tsd-anchor"></a>
 					<h3>_all</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon">_all<span class="tsd-signature-symbol">(</span>q<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Query</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">AsyncIterable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Pair</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">_all<span class="tsd-signature-symbol">(</span>q<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Query</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">AsyncGenerator</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Pair</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Overrides Adapter._all</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/ipfs/js-datastore-fs/blob/master/src/index.js#L258">src/index.js:258</a></li>
+									<li>Defined in <a href="https://github.com/ipfs/js-datastore-fs/blob/master/src/index.js#L256">src/index.js:256</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>q: <span class="tsd-signature-type">Query</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">AsyncIterable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Pair</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">AsyncGenerator</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Pair</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+					<a name="_allkeys" class="tsd-anchor"></a>
+					<h3>_all<wbr>Keys</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+						<li class="tsd-signature tsd-kind-icon">_all<wbr>Keys<span class="tsd-signature-symbol">(</span>q<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">KeyQuery</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">AsyncGenerator</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Key</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Overrides Adapter._allKeys</p>
+								<ul>
+									<li>Defined in <a href="https://github.com/ipfs/js-datastore-fs/blob/master/src/index.js#L293">src/index.js:293</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>q: <span class="tsd-signature-type">KeyQuery</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">AsyncGenerator</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Key</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -281,7 +311,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from Adapter.batch</p>
 								<ul>
-									<li>Defined in node_modules/interface-datastore/dist/src/adapter.d.ts:72</li>
+									<li>Defined in node_modules/interface-datastore/dist/src/adapter.d.ts:73</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Batch</span></h4>
@@ -346,7 +376,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from Adapter.deleteMany</p>
 								<ul>
-									<li>Defined in node_modules/interface-datastore/dist/src/adapter.d.ts:68</li>
+									<li>Defined in node_modules/interface-datastore/dist/src/adapter.d.ts:69</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -402,7 +432,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from Adapter.getMany</p>
 								<ul>
-									<li>Defined in node_modules/interface-datastore/dist/src/adapter.d.ts:62</li>
+									<li>Defined in node_modules/interface-datastore/dist/src/adapter.d.ts:63</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -536,7 +566,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from Adapter.putMany</p>
 								<ul>
-									<li>Defined in node_modules/interface-datastore/dist/src/adapter.d.ts:56</li>
+									<li>Defined in node_modules/interface-datastore/dist/src/adapter.d.ts:57</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -594,7 +624,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from Adapter.query</p>
 								<ul>
-									<li>Defined in node_modules/interface-datastore/dist/src/adapter.d.ts:83</li>
+									<li>Defined in node_modules/interface-datastore/dist/src/adapter.d.ts:94</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -607,6 +637,33 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">AsyncIterable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Pair</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+					<a name="querykeys" class="tsd-anchor"></a>
+					<h3>query<wbr>Keys</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">query<wbr>Keys<span class="tsd-signature-symbol">(</span>q<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">KeyQuery</span>, options<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Options</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">AsyncIterable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Key</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from Adapter.queryKeys</p>
+								<ul>
+									<li>Defined in node_modules/interface-datastore/dist/src/adapter.d.ts:99</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>q: <span class="tsd-signature-type">KeyQuery</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <span class="tsd-signature-type">Options</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">AsyncIterable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Key</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -638,6 +695,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
 								<a href="fsdatastore.html#_all" class="tsd-kind-icon">_all</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+								<a href="fsdatastore.html#_allkeys" class="tsd-kind-icon">_all<wbr>Keys</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
 								<a href="fsdatastore.html#_decode" class="tsd-kind-icon">_decode</a>
@@ -684,12 +744,18 @@
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
 								<a href="fsdatastore.html#query" class="tsd-kind-icon">query</a>
 							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+								<a href="fsdatastore.html#querykeys" class="tsd-kind-icon">query<wbr>Keys</a>
+							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
 					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
 						<a href="../modules.html#datastore" class="tsd-kind-icon">Datastore</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
+						<a href="../modules.html#keyquery" class="tsd-kind-icon">Key<wbr>Query</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
 						<a href="../modules.html#pair" class="tsd-kind-icon">Pair</a>
