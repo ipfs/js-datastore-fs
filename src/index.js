@@ -9,10 +9,9 @@ const promisify = require('util').promisify
 const writeAtomic = promisify(require('fast-write-atomic'))
 const path = require('path')
 const {
-  Adapter, Key, Errors, utils: {
-    map
-  }
+  Adapter, Key, Errors
 } = require('interface-datastore')
+const map = require('it-map')
 
 const noop = () => {}
 const fsAccess = promisify(fs.access || noop)
@@ -23,6 +22,7 @@ const fsUnlink = promisify(fs.unlink || noop)
  * @typedef {import('interface-datastore').Datastore} Datastore
  * @typedef {import('interface-datastore').Pair} Pair
  * @typedef {import('interface-datastore').Query} Query
+ * @typedef {import('interface-datastore').KeyQuery} KeyQuery
  */
 
 /**
@@ -251,9 +251,7 @@ class FsDatastore extends Adapter {
   }
 
   /**
-   *
    * @param {Query} q
-   * @returns {AsyncIterable<Pair>}
    */
   async * _all (q) {
     let prefix = q.prefix || '**'
@@ -268,26 +266,44 @@ class FsDatastore extends Adapter {
       absolute: true
     })
 
-    if (!q.keysOnly) {
-      for await (const file of files) {
-        try {
-          const buf = await fsReadFile(file)
+    for await (const file of files) {
+      try {
+        const buf = await fsReadFile(file)
 
-          yield {
-            key: this._decode(file),
-            value: buf
-          }
-        } catch (err) {
-          // if keys are removed from the datastore while the query is
-          // running, we may encounter missing files.
-          if (err.code !== 'ENOENT') {
-            throw err
-          }
+        /** @type {Pair} */
+        const pair = {
+          key: this._decode(file),
+          value: buf
+        }
+
+        yield pair
+      } catch (err) {
+        // if keys are removed from the datastore while the query is
+        // running, we may encounter missing files.
+        if (err.code !== 'ENOENT') {
+          throw err
         }
       }
-    } else {
-      yield * map(files, f => /** @type {Pair} */({ key: this._decode(f) }))
     }
+  }
+
+  /**
+   * @param {KeyQuery} q
+   */
+  async * _allKeys (q) {
+    let prefix = q.prefix || '**'
+
+    // strip leading slashes
+    prefix = prefix.replace(/^\/+/, '')
+
+    const pattern = `${prefix}/*${this.opts.extension}`
+      .split(path.sep)
+      .join('/')
+    const files = glob(this.path, pattern, {
+      absolute: true
+    })
+
+    yield * map(files, f => this._decode(f))
   }
 }
 
