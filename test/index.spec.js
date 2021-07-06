@@ -18,7 +18,7 @@ const sh = require('datastore-core').shard
 const { isNode } = require('ipfs-utils/src/env')
 const utf8Encoder = new TextEncoder()
 // @ts-ignore
-const tests = require('interface-datastore/src/tests')
+const tests = require('interface-datastore-tests')
 
 const FsStore = require('../src')
 
