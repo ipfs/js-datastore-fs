@@ -173,8 +173,7 @@ describe('FsDatastore', () => {
 
     tests({
       setup: () => {
-        const shard = new sh.NextToLast(2)
-        return ShardingStore.createOrOpen(new FsStore(dir), shard)
+        return new ShardingStore(new FsStore(dir), new sh.NextToLast(2))
       },
       teardown: () => {
         return rimraf(dir)
