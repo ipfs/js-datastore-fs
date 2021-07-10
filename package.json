@@ -1,6 +1,6 @@
 {
   "name": "datastore-fs",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "description": "Datastore implementation with file system backend",
   "leadMaintainer": "Alex Potsides <alex.potsides@protocol.ai>",
   "main": "src/index.js",
@@ -69,6 +69,7 @@
     "Richard Schneider <makaretu@gmail.com>",
     "Vasco Santos <vasco.santos@moxy.studio>",
     "Zane Starr <zcstarr@zaner.attlocal.net>",
+    "Stephen Whitmore <noffle@users.noreply.github.com>",
     "Matteo Collina <hello@matteocollina.com>",
     "Dmitriy Ryajov <dryajov@gmail.com>",
     "Bryan Stenson <bryan.stenson@gmail.com>"
