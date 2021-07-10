@@ -1,3 +1,7 @@
+## [5.0.1](https://github.com/ipfs/js-datastore-fs/compare/v5.0.0...v5.0.1) (2021-07-10)
+
+
+
 # [5.0.0](https://github.com/ipfs/js-datastore-fs/compare/v4.0.1...v5.0.0) (2021-07-06)
 
 
