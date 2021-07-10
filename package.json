@@ -46,9 +46,8 @@
     "mkdirp": "^1.0.4"
   },
   "devDependencies": {
-    "aegir": "^33.1.0",
+    "aegir": "^34.0.2",
     "async-iterator-all": "^1.0.0",
-    "cids": "^1.1.5",
     "detect-node": "^2.0.4",
     "interface-datastore-tests": "^1.0.0",
     "ipfs-utils": "^8.1.3",
