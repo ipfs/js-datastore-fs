@@ -12,6 +12,7 @@ const {
   Adapter, Key, Errors
 } = require('interface-datastore')
 const map = require('it-map')
+const parallel = require('it-parallel-batch')
 
 const noop = () => {}
 const fsAccess = promisify(fs.access || noop)
@@ -23,6 +24,11 @@ const fsUnlink = promisify(fs.unlink || noop)
  * @typedef {import('interface-datastore').Pair} Pair
  * @typedef {import('interface-datastore').Query} Query
  * @typedef {import('interface-datastore').KeyQuery} KeyQuery
+ */
+
+/**
+ * @template TEntry
+ * @typedef {import('interface-store').AwaitIterable<TEntry>} AwaitIterable
  */
 
 /**
@@ -62,7 +68,7 @@ async function writeFile (path, contents) {
 class FsDatastore extends Adapter {
   /**
    * @param {string} location
-   * @param {{ createIfMissing?: boolean; errorIfExists?: boolean; extension?: string; } | undefined} [opts]
+   * @param {{ createIfMissing?: boolean, errorIfExists?: boolean, extension?: string, putManyConcurrency?: number } | undefined} [opts]
    */
   constructor (location, opts) {
     super()
@@ -71,7 +77,8 @@ class FsDatastore extends Adapter {
     this.opts = Object.assign({}, {
       createIfMissing: true,
       errorIfExists: false,
-      extension: '.data'
+      extension: '.data',
+      putManyConcurrency: 50
     }, opts)
   }
 
@@ -176,6 +183,23 @@ class FsDatastore extends Adapter {
   }
 
   /**
+   * @param {AwaitIterable<Pair>} source
+   * @returns {AsyncIterable<Pair>}
+   */
+  async * putMany (source) {
+    yield * parallel(
+      map(source, ({ key, value }) => {
+        return async () => {
+          await this.put(key, value)
+
+          return { key, value }
+        }
+      }),
+      this.opts.putManyConcurrency
+    )
+  }
+
+  /**
    * Read from the file system without extension.
    *
    * @param {Key} key
@@ -223,6 +247,7 @@ class FsDatastore extends Adapter {
    */
   async has (key) {
     const parts = this._encode(key)
+
     try {
       await fsAccess(parts.file)
     } catch (err) {
