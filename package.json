@@ -43,6 +43,7 @@
     "interface-datastore": "^5.1.1",
     "it-glob": "0.0.13",
     "it-map": "^1.0.5",
+    "it-parallel-batch": "^1.0.9",
     "mkdirp": "^1.0.4"
   },
   "devDependencies": {
