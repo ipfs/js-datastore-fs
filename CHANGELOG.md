@@ -1,3 +1,12 @@
+## [5.0.2](https://github.com/ipfs/js-datastore-fs/compare/v5.0.1...v5.0.2) (2021-07-23)
+
+
+### Features
+
+* parallel block writes ([#97](https://github.com/ipfs/js-datastore-fs/issues/97)) ([ceb5cfd](https://github.com/ipfs/js-datastore-fs/commit/ceb5cfd98487147888623b587f1480660eb5722e))
+
+
+
 ## [5.0.1](https://github.com/ipfs/js-datastore-fs/compare/v5.0.0...v5.0.1) (2021-07-10)
 
 
