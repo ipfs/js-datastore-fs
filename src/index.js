@@ -78,6 +78,8 @@ class FsDatastore extends Adapter {
       createIfMissing: true,
       errorIfExists: false,
       extension: '.data',
+      deleteManyConcurrency: 50,
+      getManyConcurrency: 50,
       putManyConcurrency: 50
     }, opts)
   }
@@ -237,6 +239,38 @@ class FsDatastore extends Adapter {
       throw Errors.notFoundError(err)
     }
     return data
+  }
+
+  /**
+   * @param {AwaitIterable<Key>} source
+   * @returns {AsyncIterable<Uint8Array>}
+   */
+  async * getMany (source) {
+    yield * parallel(
+      map(source, key => {
+        return async () => {
+          return this.get(key)
+        }
+      }),
+      this.opts.getManyConcurrency
+    )
+  }
+
+  /**
+   * @param {AwaitIterable<Key>} source
+   * @returns {AsyncIterable<Key>}
+   */
+  async * deleteMany (source) {
+    yield * parallel(
+      map(source, key => {
+        return async () => {
+          await this.delete(key)
+
+          return key
+        }
+      }),
+      this.opts.deleteManyConcurrency
+    )
   }
 
   /**
