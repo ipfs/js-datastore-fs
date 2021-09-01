@@ -47,7 +47,7 @@
     "mkdirp": "^1.0.4"
   },
   "devDependencies": {
-    "aegir": "^34.0.2",
+    "aegir": "^35.0.3",
     "async-iterator-all": "^1.0.0",
     "detect-node": "^2.0.4",
     "interface-datastore-tests": "^1.0.0",
