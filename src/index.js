@@ -1,23 +1,18 @@
-'use strict'
-
-const fs = require('fs')
-const glob = require('it-glob')
-// @ts-ignore
-const mkdirp = require('mkdirp')
-const promisify = require('util').promisify
-// @ts-ignore
-const writeAtomic = promisify(require('fast-write-atomic'))
-const path = require('path')
-const {
+import fs from 'fs'
+import glob from 'it-glob'
+import mkdirp from 'mkdirp'
+import path from 'path'
+import { promisify } from 'util'
+import {
   Adapter, Key, Errors
-} = require('interface-datastore')
-const map = require('it-map')
-const parallel = require('it-parallel-batch')
+} from 'interface-datastore'
+import map from 'it-map'
+import parallel from 'it-parallel-batch'
+// @ts-ignore no types
+import fwa from 'fast-write-atomic'
 
-const noop = () => {}
-const fsAccess = promisify(fs.access || noop)
-const fsReadFile = promisify(fs.readFile || noop)
-const fsUnlink = promisify(fs.unlink || noop)
+// @ts-ignore
+const writeAtomic = promisify(fwa)
 
 /**
  * @typedef {import('interface-datastore').Datastore} Datastore
@@ -40,13 +35,13 @@ const fsUnlink = promisify(fs.unlink || noop)
 async function writeFile (path, contents) {
   try {
     await writeAtomic(path, contents)
-  } catch (err) {
+  } catch (/** @type {any} */ err) {
     if (err.code === 'EPERM' && err.syscall === 'rename') {
       // fast-write-atomic writes a file to a temp location before renaming it.
       // On Windows, if the final file already exists this error is thrown.
       // No such error is thrown on Linux/Mac
       // Make sure we can read & write to this file
-      await fsAccess(path, fs.constants.F_OK | fs.constants.W_OK)
+      await fs.promises.access(path, fs.constants.F_OK | fs.constants.W_OK)
 
       // The file was created by another context - this means there were
       // attempts to write the same block by two different function calls
@@ -65,7 +60,7 @@ async function writeFile (path, contents) {
  *
  * @implements {Datastore}
  */
-class FsDatastore extends Adapter {
+export class DatastoreFs extends Adapter {
   /**
    * @param {string} location
    * @param {{ createIfMissing?: boolean, errorIfExists?: boolean, extension?: string, putManyConcurrency?: number } | undefined} [opts]
@@ -217,7 +212,7 @@ class FsDatastore extends Adapter {
 
     let data
     try {
-      data = await fsReadFile(file)
+      data = await fs.promises.readFile(file)
     } catch (err) {
       throw Errors.notFoundError(err)
     }
@@ -234,7 +229,7 @@ class FsDatastore extends Adapter {
     const parts = this._encode(key)
     let data
     try {
-      data = await fsReadFile(parts.file)
+      data = await fs.promises.readFile(parts.file)
     } catch (err) {
       throw Errors.notFoundError(err)
     }
@@ -283,7 +278,7 @@ class FsDatastore extends Adapter {
     const parts = this._encode(key)
 
     try {
-      await fsAccess(parts.file)
+      await fs.promises.access(parts.file)
     } catch (err) {
       return false
     }
@@ -299,7 +294,7 @@ class FsDatastore extends Adapter {
   async delete (key) {
     const parts = this._encode(key)
     try {
-      await fsUnlink(parts.file)
+      await fs.promises.unlink(parts.file)
     } catch (err) {
       if (err.code === 'ENOENT') {
         return
@@ -327,7 +322,7 @@ class FsDatastore extends Adapter {
 
     for await (const file of files) {
       try {
-        const buf = await fsReadFile(file)
+        const buf = await fs.promises.readFile(file)
 
         /** @type {Pair} */
         const pair = {
@@ -365,5 +360,3 @@ class FsDatastore extends Adapter {
     yield * map(files, f => this._decode(f))
   }
 }
-
-module.exports = FsDatastore

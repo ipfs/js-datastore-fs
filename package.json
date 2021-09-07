@@ -4,21 +4,22 @@
   "description": "Datastore implementation with file system backend",
   "leadMaintainer": "Alex Potsides <alex.potsides@protocol.ai>",
   "main": "src/index.js",
-  "types": "dist/src/index.d.ts",
+  "types": "types/src/index.d.ts",
+  "type": "module",
   "files": [
     "src",
     "dist"
   ],
   "scripts": {
-    "prepare": "aegir build --no-bundle",
+    "prepare": "aegir build --no-bundle && cp -R types dist",
+    "lint": "aegir ts -p check && aegir lint",
+    "build": "aegir build --no-bundle",
+    "release": "aegir release --target node",
+    "release-minor": "aegir release --type minor --target node",
+    "release-major": "aegir release --type major --target node",
+    "pretest": "aegir build --no-bundle --esm-tests",
     "test": "aegir test -t node",
-    "build": "aegir build",
-    "lint": "aegir lint",
-    "release": "aegir release -t node --build false",
-    "release-minor": "aegir release --type minor -t node --build false",
-    "release-major": "aegir release --type major -t node --build false",
-    "coverage": "nyc -s npm run test:node && nyc report --reporter=html",
-    "dep-check": "aegir dep-check"
+    "test:node": "aegir test -t node"
   },
   "repository": {
     "type": "git",
@@ -41,13 +42,15 @@
     "datastore-core": "^5.0.0",
     "fast-write-atomic": "^0.2.0",
     "interface-datastore": "^5.1.1",
-    "it-glob": "0.0.13",
+    "it-glob": "^1.0.0",
     "it-map": "^1.0.5",
     "it-parallel-batch": "^1.0.9",
     "mkdirp": "^1.0.4"
   },
   "devDependencies": {
-    "aegir": "^34.0.2",
+    "@types/mkdirp": "^1.0.2",
+    "@types/rimraf": "^3.0.2",
+    "aegir": "^35.0.3",
     "async-iterator-all": "^1.0.0",
     "detect-node": "^2.0.4",
     "interface-datastore-tests": "^1.0.0",
@@ -56,7 +59,10 @@
     "rimraf": "^3.0.2"
   },
   "eslintConfig": {
-    "extends": "ipfs"
+    "extends": "ipfs",
+    "parserOptions": {
+      "sourceType": "module"
+    }
   },
   "contributors": [
     "achingbrain <alex@achingbrain.net>",
