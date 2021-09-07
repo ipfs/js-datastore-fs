@@ -7,18 +7,16 @@ import rmrf from 'rimraf'
 import fs from 'fs'
 import { Key, utils } from 'interface-datastore'
 import { ShardingDatastore, shard } from 'datastore-core'
-import { isNode } from 'ipfs-utils/src/env.js'
+import { isNode, isElectronMain } from 'ipfs-utils/src/env.js'
 import tests from 'interface-datastore-tests'
 import { DatastoreFs } from '../src/index.js'
-import { fileURLToPath } from 'url'
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const rimraf = promisify(rmrf)
 const utf8Encoder = new TextEncoder()
 
-describe('FsDatastore', () => {
-  if (!isNode) {
-    it('only supports node.js', () => {
+describe('DatastoreFs', () => {
+  if (!(isNode || isElectronMain)) {
+    it('only supports node.js and electron main', () => {
 
     })
 
@@ -126,7 +124,7 @@ describe('FsDatastore', () => {
   })
 
   it('query', async () => {
-    const fs = new DatastoreFs(path.join(__dirname, 'test-repo', 'blocks'))
+    const fs = new DatastoreFs(path.join(process.cwd(), '/test/test-repo/blocks'))
     const res = []
     for await (const q of fs.query({})) {
       res.push(q)
@@ -135,7 +133,7 @@ describe('FsDatastore', () => {
   })
 
   it('interop with go', async () => {
-    const repodir = path.join(__dirname, '/test-repo/blocks')
+    const repodir = path.join(process.cwd(), '/test/test-repo/blocks')
     const fstore = new DatastoreFs(repodir)
     const key = new Key('CIQGFTQ7FSI2COUXWWLOQ45VUM2GUZCGAXLWCTOKKPGTUWPXHBNIVOY')
     const expected = fs.readFileSync(path.join(repodir, 'VO', key.toString() + '.data'))

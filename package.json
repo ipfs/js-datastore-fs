@@ -18,8 +18,7 @@
     "release-minor": "aegir release --type minor --target node",
     "release-major": "aegir release --type major --target node",
     "pretest": "aegir build --no-bundle --esm-tests",
-    "test": "aegir test -t node",
-    "test:node": "aegir test -t node"
+    "test": "aegir test"
   },
   "repository": {
     "type": "git",
