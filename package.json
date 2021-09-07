@@ -41,7 +41,7 @@
     "datastore-core": "^5.0.0",
     "fast-write-atomic": "^0.2.0",
     "interface-datastore": "^5.1.1",
-    "it-glob": "0.0.13",
+    "it-glob": "1.0.0",
     "it-map": "^1.0.5",
     "it-parallel-batch": "^1.0.9",
     "mkdirp": "^1.0.4"
