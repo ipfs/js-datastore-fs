@@ -1,16 +1,10 @@
 {
   "extends": "aegir/src/config/tsconfig.aegir.json",
   "compilerOptions": {
-    "outDir": "types",
-    "module": "es2020",
-    "importsNotUsedAsValues": "preserve"
+    "outDir": "types"
   },
   "include": [
     "src",
     "test"
-  ],
-  "exclude": [
-    "dist",
-    "node_modules"
   ]
 }

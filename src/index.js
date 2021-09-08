@@ -4,8 +4,11 @@ import mkdirp from 'mkdirp'
 import path from 'path'
 import { promisify } from 'util'
 import {
-  Adapter, Key, Errors
+  Key
 } from 'interface-datastore'
+import {
+  BaseDatastore, Errors
+} from 'datastore-core'
 import map from 'it-map'
 import parallel from 'it-parallel-batch'
 // @ts-ignore no types
@@ -60,7 +63,7 @@ async function writeFile (path, contents) {
  *
  * @implements {Datastore}
  */
-export class DatastoreFs extends Adapter {
+export class DatastoreFs extends BaseDatastore {
   /**
    * @param {string} location
    * @param {{ createIfMissing?: boolean, errorIfExists?: boolean, extension?: string, putManyConcurrency?: number } | undefined} [opts]

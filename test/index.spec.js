@@ -5,11 +5,12 @@ import { promisify } from 'util'
 import mkdirp from 'mkdirp'
 import rmrf from 'rimraf'
 import fs from 'fs'
-import { Key, utils } from 'interface-datastore'
+import { Key } from 'interface-datastore'
 import { ShardingDatastore, shard } from 'datastore-core'
 import { isNode, isElectronMain } from 'ipfs-utils/src/env.js'
-import tests from 'interface-datastore-tests'
+import { interfaceDatastoreTests } from 'interface-datastore-tests'
 import { DatastoreFs } from '../src/index.js'
+import tempdir from 'ipfs-utils/src/temp-dir.js'
 
 const rimraf = promisify(rmrf)
 const utf8Encoder = new TextEncoder()
@@ -25,14 +26,14 @@ describe('DatastoreFs', () => {
 
   describe('construction', () => {
     it('defaults - folder missing', () => {
-      const dir = utils.tmpdir()
+      const dir = tempdir()
       expect(
         () => new DatastoreFs(dir)
       ).to.not.throw()
     })
 
     it('defaults - folder exists', () => {
-      const dir = utils.tmpdir()
+      const dir = tempdir()
       mkdirp.sync(dir)
       expect(
         () => new DatastoreFs(dir)
@@ -42,7 +43,7 @@ describe('DatastoreFs', () => {
 
   describe('open', () => {
     it('createIfMissing: false - folder missing', () => {
-      const dir = utils.tmpdir()
+      const dir = tempdir()
       const store = new DatastoreFs(dir, { createIfMissing: false })
       expect(
         () => store.open()
@@ -50,7 +51,7 @@ describe('DatastoreFs', () => {
     })
 
     it('errorIfExists: true - folder exists', () => {
-      const dir = utils.tmpdir()
+      const dir = tempdir()
       mkdirp.sync(dir)
       const store = new DatastoreFs(dir, { errorIfExists: true })
       expect(
@@ -60,7 +61,7 @@ describe('DatastoreFs', () => {
   })
 
   it('_encode and _decode', () => {
-    const dir = utils.tmpdir()
+    const dir = tempdir()
     const fs = new DatastoreFs(dir)
 
     expect(
@@ -80,7 +81,7 @@ describe('DatastoreFs', () => {
   })
 
   it('deleting files', async () => {
-    const dir = utils.tmpdir()
+    const dir = tempdir()
     const fs = new DatastoreFs(dir)
     const key = new Key('1234')
 
@@ -96,7 +97,7 @@ describe('DatastoreFs', () => {
   })
 
   it('deleting non-existent files', async () => {
-    const dir = utils.tmpdir()
+    const dir = tempdir()
     const fs = new DatastoreFs(dir)
     const key = new Key('5678')
 
@@ -111,7 +112,7 @@ describe('DatastoreFs', () => {
   })
 
   it('sharding files', async () => {
-    const dir = utils.tmpdir()
+    const dir = tempdir()
     const fstore = new DatastoreFs(dir)
     await ShardingDatastore.create(fstore, new shard.NextToLast(2))
 
@@ -147,9 +148,9 @@ describe('DatastoreFs', () => {
   })
 
   describe('interface-datastore', () => {
-    const dir = utils.tmpdir()
+    const dir = tempdir()
 
-    tests({
+    interfaceDatastoreTests({
       setup: () => {
         return new DatastoreFs(dir)
       },
@@ -160,9 +161,9 @@ describe('DatastoreFs', () => {
   })
 
   describe('interface-datastore (sharding(fs))', () => {
-    const dir = utils.tmpdir()
+    const dir = tempdir()
 
-    tests({
+    interfaceDatastoreTests({
       setup: () => {
         return new ShardingDatastore(new DatastoreFs(dir), new shard.NextToLast(2))
       },
@@ -173,7 +174,7 @@ describe('DatastoreFs', () => {
   })
 
   it('can survive concurrent writes', async () => {
-    const dir = utils.tmpdir()
+    const dir = tempdir()
     const fstore = new DatastoreFs(dir)
     const key = new Key('CIQGFTQ7FSI2COUXWWLOQ45VUM2GUZCGAXLWCTOKKPGTUWPXHBNIVOY')
     const value = utf8Encoder.encode('Hello world')
@@ -188,7 +189,7 @@ describe('DatastoreFs', () => {
   })
 
   it('can survive putRaw and getRaw with an empty extension', async () => {
-    const dir = utils.tmpdir()
+    const dir = tempdir()
     const fstore = new DatastoreFs(dir, {
       extension: ''
     })
