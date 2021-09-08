@@ -1,3 +1,17 @@
+# [6.0.0](https://github.com/ipfs/js-datastore-fs/compare/v5.0.2...v6.0.0) (2021-09-08)
+
+
+### chore
+
+* convert to esm ([#103](https://github.com/ipfs/js-datastore-fs/issues/103)) ([314d130](https://github.com/ipfs/js-datastore-fs/commit/314d13051665c42be8a4bcc51c19ce2d5dd45346))
+
+
+### BREAKING CHANGES
+
+* deep imports are no longer possible
+
+
+
 ## [5.0.2](https://github.com/ipfs/js-datastore-fs/compare/v5.0.1...v5.0.2) (2021-07-23)
 
 
