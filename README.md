@@ -1,4 +1,4 @@
-# js-datastore-fs
+# js-datastore-fs <!-- omit in toc -->
 
 [![](https://img.shields.io/badge/made%20by-Protocol%20Labs-blue.svg?style=flat-square)](http://ipn.io)
 [![](https://img.shields.io/badge/project-IPFS-blue.svg?style=flat-square)](http://ipfs.io/)
@@ -13,19 +13,16 @@
 
 > Datastore implementation with file system backend.
 
-## Lead Maintainer
+## Lead Maintainer <!-- omit in toc -->
 
 [Alex Potsides](https://github.com/achingbrain)
 
-## Table of Contents
+## Table of Contents <!-- omit in toc -->
 
-- [js-datastore-fs](#js-datastore-fs)
-  - [Lead Maintainer](#lead-maintainer)
-  - [Table of Contents](#table-of-contents)
-  - [Install](#install)
-  - [Usage](#usage)
-  - [Contribute](#contribute)
-  - [License](#license)
+- [Install](#install)
+- [Usage](#usage)
+- [Contribute](#contribute)
+- [License](#license)
 
 ## Install
 
@@ -36,8 +33,9 @@ $ npm install datastore-fs
 ## Usage
 
 ```js
-const FsStore = require('datastore-fs')
-const store = new FsStore('path/to/store')
+import { FSDatastore } from 'datastore-fs'
+
+const store = new FSDatastore('path/to/store')
 ```
 
 ## Contribute
