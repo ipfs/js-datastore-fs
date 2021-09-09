@@ -9,13 +9,13 @@ import { Key } from 'interface-datastore'
 import { ShardingDatastore, shard } from 'datastore-core'
 import { isNode, isElectronMain } from 'ipfs-utils/src/env.js'
 import { interfaceDatastoreTests } from 'interface-datastore-tests'
-import { DatastoreFs } from '../src/index.js'
+import { FsDatastore } from '../src/index.js'
 import tempdir from 'ipfs-utils/src/temp-dir.js'
 
 const rimraf = promisify(rmrf)
 const utf8Encoder = new TextEncoder()
 
-describe('DatastoreFs', () => {
+describe('FsDatastore', () => {
   if (!(isNode || isElectronMain)) {
     it('only supports node.js and electron main', () => {
 
@@ -28,7 +28,7 @@ describe('DatastoreFs', () => {
     it('defaults - folder missing', () => {
       const dir = tempdir()
       expect(
-        () => new DatastoreFs(dir)
+        () => new FsDatastore(dir)
       ).to.not.throw()
     })
 
@@ -36,7 +36,7 @@ describe('DatastoreFs', () => {
       const dir = tempdir()
       mkdirp.sync(dir)
       expect(
-        () => new DatastoreFs(dir)
+        () => new FsDatastore(dir)
       ).to.not.throw()
     })
   })
@@ -44,7 +44,7 @@ describe('DatastoreFs', () => {
   describe('open', () => {
     it('createIfMissing: false - folder missing', () => {
       const dir = tempdir()
-      const store = new DatastoreFs(dir, { createIfMissing: false })
+      const store = new FsDatastore(dir, { createIfMissing: false })
       expect(
         () => store.open()
       ).to.throw()
@@ -53,7 +53,7 @@ describe('DatastoreFs', () => {
     it('errorIfExists: true - folder exists', () => {
       const dir = tempdir()
       mkdirp.sync(dir)
-      const store = new DatastoreFs(dir, { errorIfExists: true })
+      const store = new FsDatastore(dir, { errorIfExists: true })
       expect(
         () => store.open()
       ).to.throw()
@@ -62,7 +62,7 @@ describe('DatastoreFs', () => {
 
   it('_encode and _decode', () => {
     const dir = tempdir()
-    const fs = new DatastoreFs(dir)
+    const fs = new FsDatastore(dir)
 
     expect(
       // @ts-ignore
@@ -82,7 +82,7 @@ describe('DatastoreFs', () => {
 
   it('deleting files', async () => {
     const dir = tempdir()
-    const fs = new DatastoreFs(dir)
+    const fs = new FsDatastore(dir)
     const key = new Key('1234')
 
     await fs.put(key, Uint8Array.from([0, 1, 2, 3]))
@@ -98,7 +98,7 @@ describe('DatastoreFs', () => {
 
   it('deleting non-existent files', async () => {
     const dir = tempdir()
-    const fs = new DatastoreFs(dir)
+    const fs = new FsDatastore(dir)
     const key = new Key('5678')
 
     await fs.delete(key)
@@ -113,7 +113,7 @@ describe('DatastoreFs', () => {
 
   it('sharding files', async () => {
     const dir = tempdir()
-    const fstore = new DatastoreFs(dir)
+    const fstore = new FsDatastore(dir)
     await ShardingDatastore.create(fstore, new shard.NextToLast(2))
 
     const file = await fs.promises.readFile(path.join(dir, shard.SHARDING_FN))
@@ -125,7 +125,7 @@ describe('DatastoreFs', () => {
   })
 
   it('query', async () => {
-    const fs = new DatastoreFs(path.join(process.cwd(), '/test/test-repo/blocks'))
+    const fs = new FsDatastore(path.join(process.cwd(), '/test/test-repo/blocks'))
     const res = []
     for await (const q of fs.query({})) {
       res.push(q)
@@ -135,7 +135,7 @@ describe('DatastoreFs', () => {
 
   it('interop with go', async () => {
     const repodir = path.join(process.cwd(), '/test/test-repo/blocks')
-    const fstore = new DatastoreFs(repodir)
+    const fstore = new FsDatastore(repodir)
     const key = new Key('CIQGFTQ7FSI2COUXWWLOQ45VUM2GUZCGAXLWCTOKKPGTUWPXHBNIVOY')
     const expected = fs.readFileSync(path.join(repodir, 'VO', key.toString() + '.data'))
     const flatfs = await ShardingDatastore.open(fstore)
@@ -152,7 +152,7 @@ describe('DatastoreFs', () => {
 
     interfaceDatastoreTests({
       setup: () => {
-        return new DatastoreFs(dir)
+        return new FsDatastore(dir)
       },
       teardown: () => {
         return rimraf(dir)
@@ -165,7 +165,7 @@ describe('DatastoreFs', () => {
 
     interfaceDatastoreTests({
       setup: () => {
-        return new ShardingDatastore(new DatastoreFs(dir), new shard.NextToLast(2))
+        return new ShardingDatastore(new FsDatastore(dir), new shard.NextToLast(2))
       },
       teardown: () => {
         return rimraf(dir)
@@ -175,7 +175,7 @@ describe('DatastoreFs', () => {
 
   it('can survive concurrent writes', async () => {
     const dir = tempdir()
-    const fstore = new DatastoreFs(dir)
+    const fstore = new FsDatastore(dir)
     const key = new Key('CIQGFTQ7FSI2COUXWWLOQ45VUM2GUZCGAXLWCTOKKPGTUWPXHBNIVOY')
     const value = utf8Encoder.encode('Hello world')
 
@@ -190,7 +190,7 @@ describe('DatastoreFs', () => {
 
   it('can survive putRaw and getRaw with an empty extension', async () => {
     const dir = tempdir()
-    const fstore = new DatastoreFs(dir, {
+    const fstore = new FsDatastore(dir, {
       extension: ''
     })
     const key = new Key('CIQGFTQ7FSI2COUXWWLOQ45VUM2GUZCGAXLWCTOKKPGTUWPXHBNIVOY')
