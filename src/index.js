@@ -63,7 +63,7 @@ async function writeFile (path, contents) {
  *
  * @implements {Datastore}
  */
-export class DatastoreFs extends BaseDatastore {
+export class FsDatastore extends BaseDatastore {
   /**
    * @param {string} location
    * @param {{ createIfMissing?: boolean, errorIfExists?: boolean, extension?: string, putManyConcurrency?: number } | undefined} [opts]
