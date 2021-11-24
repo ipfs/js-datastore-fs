@@ -56,7 +56,7 @@
   "devDependencies": {
     "@types/mkdirp": "^1.0.2",
     "@types/rimraf": "^3.0.2",
-    "aegir": "^35.0.3",
+    "aegir": "^36.0.1",
     "async-iterator-all": "^1.0.0",
     "detect-node": "^2.0.4",
     "interface-datastore-tests": "^2.0.3",
