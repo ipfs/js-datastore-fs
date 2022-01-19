@@ -106,7 +106,7 @@ describe('FsDatastore', () => {
     try {
       await fs.get(key)
       throw new Error('Should have errored')
-    } catch (err) {
+    } catch (/** @type {any} */ err) {
       expect(err.code).to.equal('ERR_NOT_FOUND')
     }
   })

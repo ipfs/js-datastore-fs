@@ -92,7 +92,7 @@ export class FsDatastore extends BaseDatastore {
         throw Errors.dbOpenFailedError(new Error(`Datastore directory: ${this.path} already exists`))
       }
       return Promise.resolve()
-    } catch (err) {
+    } catch (/** @type {any} */ err) {
       if (err.code === 'ERR_NOT_FOUND' && this.opts.createIfMissing) {
         mkdirp.sync(this.path, { fs: fs })
         return Promise.resolve()
@@ -177,7 +177,7 @@ export class FsDatastore extends BaseDatastore {
     try {
       await mkdirp(parts.dir, { fs: fs })
       await writeFile(parts.file, val)
-    } catch (err) {
+    } catch (/** @type {any} */ err) {
       throw Errors.dbWriteFailedError(err)
     }
   }
@@ -216,7 +216,7 @@ export class FsDatastore extends BaseDatastore {
     let data
     try {
       data = await fs.promises.readFile(file)
-    } catch (err) {
+    } catch (/** @type {any} */ err) {
       throw Errors.notFoundError(err)
     }
     return data
@@ -233,7 +233,7 @@ export class FsDatastore extends BaseDatastore {
     let data
     try {
       data = await fs.promises.readFile(parts.file)
-    } catch (err) {
+    } catch (/** @type {any} */ err) {
       throw Errors.notFoundError(err)
     }
     return data
@@ -282,7 +282,7 @@ export class FsDatastore extends BaseDatastore {
 
     try {
       await fs.promises.access(parts.file)
-    } catch (err) {
+    } catch (/** @type {any} */ err) {
       return false
     }
     return true
@@ -298,7 +298,7 @@ export class FsDatastore extends BaseDatastore {
     const parts = this._encode(key)
     try {
       await fs.promises.unlink(parts.file)
-    } catch (err) {
+    } catch (/** @type {any} */ err) {
       if (err.code === 'ENOENT') {
         return
       }
@@ -334,7 +334,7 @@ export class FsDatastore extends BaseDatastore {
         }
 
         yield pair
-      } catch (err) {
+      } catch (/** @type {any} */ err) {
         // if keys are removed from the datastore while the query is
         // running, we may encounter missing files.
         if (err.code !== 'ENOENT') {
