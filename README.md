@@ -4,7 +4,7 @@
 [![](https://img.shields.io/badge/project-IPFS-blue.svg?style=flat-square)](http://ipfs.io/)
 [![](https://img.shields.io/badge/freenode-%23ipfs-blue.svg?style=flat-square)](http://webchat.freenode.net/?channels=%23ipfs)
 [![standard-readme compliant](https://img.shields.io/badge/standard--readme-OK-green.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
-[![Build Status](https://flat.badgen.net/travis/ipfs/js-datastore-fs)](https://travis-ci.com/ipfs/js-datastore-fs)
+[![Build Status](https://github.com/ipfs/js-datastore-fs/actions/workflows/js-test-and-release.yml/badge.svg?branch=master)](https://github.com/ipfs/js-datastore-fs/actions/workflows/js-test-and-release.yml)
 [![Codecov](https://codecov.io/gh/ipfs/js-datastore-fs/branch/master/graph/badge.svg)](https://codecov.io/gh/ipfs/js-datastore-fs)
 [![Dependency Status](https://david-dm.org/ipfs/js-datastore-fs.svg?style=flat-square)](https://david-dm.org/ipfs/js-datastore-fs)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/feross/standard)
@@ -12,10 +12,6 @@
 ![](https://img.shields.io/badge/Node.js-%3E%3D8.0.0-orange.svg?style=flat-square)
 
 > Datastore implementation with file system backend.
-
-## Lead Maintainer <!-- omit in toc -->
-
-[Alex Potsides](https://github.com/achingbrain)
 
 ## Table of Contents <!-- omit in toc -->
 

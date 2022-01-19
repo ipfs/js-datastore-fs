@@ -2,50 +2,155 @@
   "name": "datastore-fs",
   "version": "6.0.1",
   "description": "Datastore implementation with file system backend",
-  "leadMaintainer": "Alex Potsides <alex.potsides@protocol.ai>",
+  "author": "Friedel Ziegelmayer<dignifiedquire@gmail.com>",
+  "license": "Apache-2.0 OR MIT",
+  "homepage": "https://github.com/ipfs/js-datastore-fs#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ipfs/js-datastore-fs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ipfs/js-datastore-fs/issues"
+  },
+  "keywords": [
+    "datastore",
+    "fs",
+    "interface",
+    "ipfs",
+    "key-value"
+  ],
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=7.0.0"
+  },
   "main": "src/index.js",
-  "types": "types/src/index.d.ts",
   "type": "module",
+  "types": "types/src/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "types/*",
+        "types/src/*"
+      ],
+      "types/*": [
+        "types/*",
+        "types/src/*"
+      ]
+    }
+  },
   "files": [
     "*",
     "!**/*.tsbuildinfo"
   ],
-  "browser": {
-    "fs": false,
-    "path": false,
-    "util": false
+  "exports": {
+    ".": {
+      "import": "./src/index.js"
+    }
+  },
+  "eslintConfig": {
+    "extends": "ipfs",
+    "parserOptions": {
+      "sourceType": "module"
+    }
+  },
+  "release": {
+    "branches": [
+      "master"
+    ],
+    "plugins": [
+      [
+        "@semantic-release/commit-analyzer",
+        {
+          "preset": "conventionalcommits",
+          "releaseRules": [
+            {
+              "breaking": true,
+              "release": "major"
+            },
+            {
+              "revert": true,
+              "release": "patch"
+            },
+            {
+              "type": "feat",
+              "release": "minor"
+            },
+            {
+              "type": "fix",
+              "release": "patch"
+            },
+            {
+              "type": "chore",
+              "release": "patch"
+            },
+            {
+              "type": "docs",
+              "release": "patch"
+            },
+            {
+              "type": "test",
+              "release": "patch"
+            },
+            {
+              "scope": "no-release",
+              "release": false
+            }
+          ]
+        }
+      ],
+      [
+        "@semantic-release/release-notes-generator",
+        {
+          "preset": "conventionalcommits",
+          "presetConfig": {
+            "types": [
+              {
+                "type": "feat",
+                "section": "Features"
+              },
+              {
+                "type": "fix",
+                "section": "Bug Fixes"
+              },
+              {
+                "type": "chore",
+                "section": "Trivial Changes"
+              },
+              {
+                "type": "docs",
+                "section": "Trivial Changes"
+              },
+              {
+                "type": "test",
+                "section": "Tests"
+              }
+            ]
+          }
+        }
+      ],
+      "@semantic-release/changelog",
+      [
+        "@semantic-release/npm",
+        {
+          "pkgRoot": "dist"
+        }
+      ],
+      "@semantic-release/github",
+      "@semantic-release/git"
+    ]
   },
   "scripts": {
     "clean": "rimraf dist types",
     "prepare": "aegir build --no-bundle && cp -R types dist",
     "lint": "aegir ts -p check && aegir lint",
-    "build": "aegir build --no-bundle",
-    "release": "aegir release --target node",
-    "release-minor": "aegir release --type minor --target node",
-    "release-major": "aegir release --type major --target node",
-    "pretest": "aegir build --esm-tests",
+    "build": "aegir build --esm-tests",
+    "release": "semantic-release",
     "test": "aegir test",
+    "test:node": "aegir test -t node",
     "dep-check": "aegir dep-check -i rimraf"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ipfs/js-datastore-fs.git"
-  },
-  "keywords": [
-    "interface",
-    "key-value",
-    "ipfs",
-    "datastore",
-    "fs"
-  ],
-  "author": "Friedel Ziegelmayer<dignifiedquire@gmail.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/ipfs/js-datastore-fs/issues"
-  },
-  "homepage": "https://github.com/ipfs/js-datastore-fs#readme",
   "dependencies": {
-    "datastore-core": "^6.0.5",
+    "datastore-core": "^7.0.0",
     "fast-write-atomic": "^0.2.0",
     "interface-datastore": "^6.0.2",
     "it-glob": "^1.0.1",
@@ -56,7 +161,7 @@
   "devDependencies": {
     "@types/mkdirp": "^1.0.2",
     "@types/rimraf": "^3.0.2",
-    "aegir": "^35.0.3",
+    "aegir": "^36.1.3",
     "async-iterator-all": "^1.0.0",
     "detect-node": "^2.0.4",
     "interface-datastore-tests": "^2.0.3",
@@ -64,27 +169,9 @@
     "memdown": "^6.0.0",
     "rimraf": "^3.0.2"
   },
-  "eslintConfig": {
-    "extends": "ipfs",
-    "parserOptions": {
-      "sourceType": "module"
-    }
-  },
-  "contributors": [
-    "achingbrain <alex@achingbrain.net>",
-    "David Dias <daviddias.p@gmail.com>",
-    "Friedel Ziegelmayer <dignifiedquire@gmail.com>",
-    "Jacob Heun <jacobheun@gmail.com>",
-    "Hugo Dias <hugomrdias@gmail.com>",
-    "Pedro Teixeira <i@pgte.me>",
-    "Hector Sanjuan <code@hector.link>",
-    "ᴠɪᴄᴛᴏʀ ʙᴊᴇʟᴋʜᴏʟᴍ <victorbjelkholm@gmail.com>",
-    "Richard Schneider <makaretu@gmail.com>",
-    "Vasco Santos <vasco.santos@moxy.studio>",
-    "Zane Starr <zcstarr@zaner.attlocal.net>",
-    "Stephen Whitmore <noffle@users.noreply.github.com>",
-    "Matteo Collina <hello@matteocollina.com>",
-    "Dmitriy Ryajov <dryajov@gmail.com>",
-    "Bryan Stenson <bryan.stenson@gmail.com>"
-  ]
+  "browser": {
+    "fs": false,
+    "path": false,
+    "util": false
+  }
 }
