@@ -1,3 +1,14 @@
+## [7.0.0](https://github.com/ipfs/js-datastore-fs/compare/v6.0.1...v7.0.0) (2022-01-19)
+
+
+### ⚠ BREAKING CHANGES
+
+* updates project config to use unified ci
+
+### Trivial Changes
+
+* switch to unified ci ([#113](https://github.com/ipfs/js-datastore-fs/issues/113)) ([5e306e2](https://github.com/ipfs/js-datastore-fs/commit/5e306e260727d6fdfdfbd75aae84ca48bb11592f))
+
 ## [6.0.1](https://github.com/ipfs/js-datastore-fs/compare/v6.0.0...v6.0.1) (2021-09-09)
 
 
@@ -226,6 +237,3 @@
 
 <a name="0.1.0"></a>
 # 0.1.0 (2017-03-15)
-
-
-
