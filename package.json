@@ -158,7 +158,7 @@
     "fast-write-atomic": "^0.2.0",
     "interface-datastore": "^7.0.0",
     "it-glob": "^1.0.1",
-    "it-map": "^1.0.5",
+    "it-map": "^2.0.0",
     "it-parallel-batch": "^1.0.9",
     "mkdirp": "^1.0.4"
   },
