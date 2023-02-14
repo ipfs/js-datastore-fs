@@ -163,7 +163,7 @@
     "mkdirp": "^1.0.4"
   },
   "devDependencies": {
-    "@types/mkdirp": "^1.0.2",
+    "@types/mkdirp": "^2.0.0",
     "@types/rimraf": "^3.0.2",
     "aegir": "^37.5.0",
     "async-iterator-all": "^1.0.0",
