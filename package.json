@@ -165,7 +165,7 @@
   "devDependencies": {
     "@types/mkdirp": "^1.0.2",
     "@types/rimraf": "^3.0.2",
-    "aegir": "^37.5.0",
+    "aegir": "^38.1.6",
     "async-iterator-all": "^1.0.0",
     "detect-node": "^2.0.4",
     "interface-datastore-tests": "^3.0.0",
