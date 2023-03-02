@@ -160,7 +160,7 @@
     "it-glob": "^1.0.1",
     "it-map": "^1.0.5",
     "it-parallel-batch": "^1.0.9",
-    "mkdirp": "^1.0.4"
+    "mkdirp": "^2.1.4"
   },
   "devDependencies": {
     "@types/mkdirp": "^1.0.2",
