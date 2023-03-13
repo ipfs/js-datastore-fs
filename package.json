@@ -147,35 +147,28 @@
   "scripts": {
     "clean": "aegir clean",
     "lint": "aegir lint",
-    "build": "aegir build",
+    "build": "aegir build --bundle false",
     "release": "aegir release",
-    "test": "aegir test",
+    "test": "aegir test -t node -t electron-main",
     "test:node": "aegir test -t node",
-    "dep-check": "aegir dep-check -i rimraf"
+    "test:electron-main": "aegir test -t electron-main",
+    "dep-check": "aegir dep-check",
+    "docs": "aegir docs"
   },
   "dependencies": {
-    "datastore-core": "^8.0.1",
+    "datastore-core": "^9.0.1",
     "fast-write-atomic": "^0.2.0",
-    "interface-datastore": "^7.0.0",
-    "it-glob": "^1.0.1",
-    "it-map": "^1.0.5",
-    "it-parallel-batch": "^1.0.9",
-    "mkdirp": "^1.0.4"
+    "interface-datastore": "^8.0.0",
+    "interface-store": "^4.0.0",
+    "it-glob": "^2.0.1",
+    "it-map": "^2.0.1",
+    "it-parallel-batch": "^2.0.1"
   },
   "devDependencies": {
-    "@types/mkdirp": "^1.0.2",
-    "@types/rimraf": "^3.0.2",
-    "aegir": "^37.5.0",
-    "async-iterator-all": "^1.0.0",
-    "detect-node": "^2.0.4",
-    "interface-datastore-tests": "^3.0.0",
-    "ipfs-utils": "^9.0.4",
-    "memdown": "^6.0.0",
-    "rimraf": "^3.0.2"
-  },
-  "browser": {
-    "fs": false,
-    "path": false,
-    "util": false
+    "@types/mkdirp": "^2.0.0",
+    "@types/rimraf": "^4.0.5",
+    "aegir": "^38.1.7",
+    "interface-datastore-tests": "^4.0.0",
+    "ipfs-utils": "^9.0.4"
   }
 }
