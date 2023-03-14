@@ -1,3 +1,24 @@
+## [9.0.0](https://github.com/ipfs/js-datastore-fs/compare/v8.0.0...v9.0.0) (2023-03-14)
+
+
+### ⚠ BREAKING CHANGES
+
+* interface-datastore 8.x.x has removed the open and close methods as these are implementation specific
+
+### Bug Fixes
+
+* fix exports map ([4332006](https://github.com/ipfs/js-datastore-fs/commit/4332006aba3e8e67c80144b110cc81042ce07e03))
+
+
+### Dependencies
+
+* update interface-datastore to 8.x.x ([#180](https://github.com/ipfs/js-datastore-fs/issues/180)) ([2ef5f5c](https://github.com/ipfs/js-datastore-fs/commit/2ef5f5cf021b1876cb83c53bafebb5f153c77462))
+
+
+### Trivial Changes
+
+* update project config ([62adc6b](https://github.com/ipfs/js-datastore-fs/commit/62adc6b238e64c6040afb4887bf6999de42cde08))
+
 ## [8.0.0](https://github.com/ipfs/js-datastore-fs/compare/v7.0.0...v8.0.0) (2022-08-12)
 
 
