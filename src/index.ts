@@ -136,7 +136,7 @@ export class FsDatastore extends BaseDatastore {
   /**
    * Store the given value under the key
    */
-  async put (key: Key, val: Uint8Array): Promise<void> {
+  async put (key: Key, val: Uint8Array): Promise<Key> {
     const parts = this._encode(key)
 
     try {
@@ -144,18 +144,20 @@ export class FsDatastore extends BaseDatastore {
         recursive: true
       })
       await writeFile(parts.file, val)
+
+      return key
     } catch (err: any) {
       throw Errors.dbWriteFailedError(err)
     }
   }
 
-  async * putMany (source: AwaitIterable<Pair>): AsyncIterable<Pair> {
+  async * putMany (source: AwaitIterable<Pair>): AsyncIterable<Key> {
     yield * parallel(
       map(source, ({ key, value }) => {
         return async () => {
           await this.put(key, value)
 
-          return { key, value }
+          return key
         }
       }),
       this.putManyConcurrency
@@ -176,11 +178,14 @@ export class FsDatastore extends BaseDatastore {
     return data
   }
 
-  async * getMany (source: AwaitIterable<Key>): AsyncIterable<Uint8Array> {
+  async * getMany (source: AwaitIterable<Key>): AsyncIterable<Pair> {
     yield * parallel(
       map(source, key => {
         return async () => {
-          return await this.get(key)
+          return {
+            key,
+            value: await this.get(key)
+          }
         }
       }),
       this.getManyConcurrency

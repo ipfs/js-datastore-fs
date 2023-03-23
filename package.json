@@ -140,10 +140,10 @@
     "docs": "aegir docs"
   },
   "dependencies": {
-    "datastore-core": "^9.0.1",
+    "datastore-core": "^9.0.4",
     "fast-write-atomic": "^0.2.0",
-    "interface-datastore": "^8.0.0",
-    "interface-store": "^4.0.0",
+    "interface-datastore": "^8.1.2",
+    "interface-store": "^5.0.1",
     "it-glob": "^2.0.1",
     "it-map": "^2.0.1",
     "it-parallel-batch": "^2.0.1"
@@ -152,7 +152,7 @@
     "@types/mkdirp": "^2.0.0",
     "@types/rimraf": "^4.0.5",
     "aegir": "^38.1.7",
-    "interface-datastore-tests": "^4.0.0",
+    "interface-datastore-tests": "^5.0.0",
     "ipfs-utils": "^9.0.4"
   }
 }
