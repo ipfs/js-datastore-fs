@@ -1,3 +1,10 @@
+## [9.0.1](https://github.com/ipfs/js-datastore-fs/compare/v9.0.0...v9.0.1) (2023-03-23)
+
+
+### Dependencies
+
+* update interface-store to 5.x.x ([#183](https://github.com/ipfs/js-datastore-fs/issues/183)) ([803df0b](https://github.com/ipfs/js-datastore-fs/commit/803df0bc96860352957fb06fee109a705124a273))
+
 ## [9.0.0](https://github.com/ipfs/js-datastore-fs/compare/v8.0.0...v9.0.0) (2023-03-14)
 
 
